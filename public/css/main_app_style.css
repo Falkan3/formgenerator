@@ -1,0 +1,350 @@
+/* Header *************************************************************************/
+
+.navbar, .navbar li a {
+    transition: 1s;
+}
+
+.navbar {
+    margin-bottom: 0;
+    border: none;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+header nav #logo {
+    max-width: 200px;
+}
+
+@media (min-width: 769px) {
+    .navbar-brand {
+        padding: 7px 15px;
+    }
+}
+
+/* /Header *************************************************************************/
+
+/* Utilites *************************************************************************/
+
+.padding-small {
+    padding: 15px 8px;
+}
+
+.padding-medium {
+    padding: 30px 15px;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-margins div {
+    margin: 0 !important;
+}
+
+.no-padding div {
+    padding: 0 !important;
+}
+
+.margin-bottom-medium {
+    margin-bottom: 30px;
+}
+
+span.highlight {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+span.highlight.big {
+    font-size: 32px;
+}
+
+span.highlight.colored {
+    color: #fff;
+}
+
+span.text-bold
+{
+    font-weight: bold;
+}
+
+/* /Utilites *************************************************************************/
+
+/* Content *************************************************************************/
+
+body {
+    background: #ff9c00; /*#227ab2;*/
+    font-family: 'Montserrat', sans-serif;
+    color: #000;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    margin: 30px 0;
+}
+
+/* Tiles *************************************************************************/
+
+.contact-form {
+    min-height: 350px;
+    padding: 15px 0;
+}
+
+.contact-form .input-header {
+    height: 50px;
+    display: table;
+    background-color: #fff;
+}
+
+.contact-form .input-header p {
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 24px;
+    color: #ff9c00;
+}
+
+.contact-form .header-ext {
+    display: table;
+    height: 50px;
+    color: #fff;
+    background-color: #ff9c00;
+    background-color: transparent;
+}
+
+.contact-form .header-ext p {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    padding-left: 15px;
+    color: #fff;
+    background-color: #ff9c00;
+    background-color: transparent;
+}
+
+.contact-form .field-group {
+    overflow: visible;
+    margin: 0 0 30px 0;
+    padding: 0;
+}
+
+.contact-form .field-group div {
+    padding: 0;
+    margin: 0;
+}
+
+.contact-form .field-group .input-body {
+    background-color: #fff;
+    text-align: left;
+    min-height: 20px;
+    padding: 15px;
+}
+
+.contact-form {
+    color: #000;
+}
+
+.contact-form .input-body {
+    margin-bottom: 30px;
+}
+
+.contact-form input[type="text"].contact-form-field, .contact-form input[type="textarea"].contact-form-field{
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.contact-form .contact-form-field.wrong_input {
+    border: 2px solid #880000;
+    background-color: #ffaca5;
+}
+
+.contact-form .contact-form-field.wrong_input:focus {
+    border: 2px solid #cc1304;
+    outline: none;
+}
+
+.contact-form .contact-form-field.correct_input {
+    border: 2px solid #067200;
+    background-color: #a7ff89;
+}
+
+.contact-form .contact-form-field.correct_input:focus {
+    border: 2px solid #07a300;
+    outline: none;
+}
+
+
+.contact-form ::-webkit-input-placeholder {
+    white-space: normal;
+    word-wrap: break-word;
+    display: block;
+    word-wrap: break-word !important;
+    white-space: normal!important;
+    width: 100%;
+}
+.contact-form :-moz-placeholder {
+    white-space: normal;
+    word-wrap: break-word;
+    display: block;
+    word-wrap: break-word !important;
+    white-space: normal!important;
+    width: 100%;
+}
+.contact-form ::-moz-placeholder {
+    white-space: normal;
+    word-wrap: break-word;
+    display: block;
+    word-wrap: break-word !important;
+    white-space: normal!important;
+    width: 100%;
+}
+.contact-form :-ms-input-placeholder {
+    white-space: normal;
+    word-wrap: break-word;
+    display: block;
+    word-wrap: break-word !important;
+    white-space: normal!important;
+    width: 100%;
+}
+
+
+.contact-form .btn {
+    display: block;
+    padding: 15px 30px;
+    width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0;
+    background-color: #3a3a38;
+    white-space: normal;
+    color: #fff;
+}
+
+.contact-form .btn:hover {
+    background-color: rgb(69, 99, 91);
+}
+
+.col-sm-1.center-block, .col-sm-10.center-block, .col-sm-11.center-block, .col-sm-12.center-block, .col-sm-2.center-block, .col-sm-3.center-block, .col-sm-4.center-block, .col-sm-5.center-block, .col-sm-6.center-block, .col-sm-7.center-block, .col-sm-8.center-block, .col-sm-9.center-block {
+    float: none;
+}
+
+.contact-form a[data-toggle="tooltip"] {
+    text-decoration: none;
+}
+
+.contact-form .tooltip {
+    margin:0 ;
+}
+
+.contact-form .tooltip.bottom {
+    top: 50px !important;
+}
+
+.contact-form .tooltip .tooltip-inner {
+    padding: 10px 15px;
+    width: 200px;
+    background-color: #3a3a38 !important;
+}
+
+.contact-form .tooltip .tooltip-arrow {
+    border-left-color: #3a3a38 !important;
+    border-top-color: #3a3a38 !important;
+}
+
+.contact-form .link {
+    color: #000;
+    text-decoration: none;
+    font-size: 11px;
+}
+
+.corner-ribbon {
+    line-height: 40px;
+}
+
+.corner-ribbon.top-left {
+    top: 15px;
+    left: -65px;
+}
+
+.notifyjs-corner div {
+    white-space: normal;
+}
+
+.notifyjs-bootstrap-black {
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: normal !important;
+    background-color: #212121 !important;
+    border-color: #000 !important;
+    background-image: url('../images/dist/bell.png') !important;
+    background-size: 16px 16px !important;
+    background-position: 5px 9px !important;
+    max-width: 300px;
+    font-size: 12px;
+}
+
+@media (max-width: 1200px) {
+    .contact-form .btn {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 991px) {
+    .contact-form {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-form {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .contact-form, .contact-form > div {
+        min-height: 0 !important;
+    }
+
+    .contact-form .btn {
+        font-size: 16px;
+        padding: 15px 25px;
+    }
+
+    .corner-ribbon {
+        line-height: 35px;
+    }
+
+    .corner-ribbon.top-left {
+        top: 10px;
+        left: -75px;
+    }
+}
+
+@media (max-width: 420px) {
+    .contact-form .field-group .header-ext {
+        height: 80px;
+    }
+
+    .contact-form .field-group .input-header {
+        margin-top: 30px;
+    }
+}
+/* /Tiles *************************************************************************/
+
+/* /Content *************************************************************************/
