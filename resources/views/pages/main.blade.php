@@ -1,6 +1,6 @@
 @extends($layout)
 @section('title')
-    Nieruchomości | NegocjujemyPromocje
+    Ankieta | NegocjujemyPromocje
 @stop
 
 @section('content')
