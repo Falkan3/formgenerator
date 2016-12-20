@@ -73,7 +73,8 @@ span.text-bold
 /* Content *************************************************************************/
 
 body {
-    background: #ff9c00; /*#227ab2;*/
+    /*background: #ff9c00;*/ /*#227ab2;*/
+    background: #2babfc;
     font-family: 'Montserrat', sans-serif;
     color: #000;
     font-size: 14px;
@@ -102,14 +103,16 @@ body {
     display: table-cell;
     vertical-align: middle;
     font-size: 24px;
-    color: #ff9c00;
+    /*color: #ff9c00;*/
+    color: #2babfc;
 }
 
 .contact-form .header-ext {
     display: table;
     height: 50px;
     color: #fff;
-    background-color: #ff9c00;
+    /*background-color: #ff9c00;*/
+    background: #2babfc;
     background-color: transparent;
 }
 
@@ -118,8 +121,10 @@ body {
     vertical-align: middle;
     text-align: left;
     padding-left: 15px;
-    color: #fff;
-    background-color: #ff9c00;
+    color: #000;
+    /*color: #fff; */
+    /*background-color: #ff9c00;*/
+    background: #2babfc;
     background-color: transparent;
 }
 
@@ -142,7 +147,7 @@ body {
 }
 
 .contact-form {
-    color: #000;
+    color: #555;
 }
 
 .contact-form .input-body {
