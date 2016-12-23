@@ -33,5 +33,13 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('p/{id}', 'MainController@ViewPage');
+
+    Route::group(['prefix' => 'survey'], function () {
+        Route::get('{id}', 'SimpleSurveyController@getSurvey');
+        //Route::post('{id}', 'SurveyController@postSurvey');
+        //Route::get('{id}/step/{step}', 'SurveyController@generateSurvey');
+        Route::post('{id}/step/{step}', 'SimpleSurveyController@postSurveyStep');
+        Route::get('done/{id}', 'SimpleSurveyController@getSurveyDone');
+    });
 });
 

@@ -41,7 +41,7 @@ class HomeController extends Controller
 
         $pages = Page::all();
 
-        return view('lte.demo', ['photos' => $photos, 'lastweek' => $lastweek, 'photocount' => $photocount, 'pages' => $pages]);
+        return view('lte.demo', ['photos' => $photos, 'lastweek' => $lastweek, 'photocount' => $photocount, 'pages' => $pages, 'pagename' => 'Dashboard']);
     }
 
     public function PreviousPhoto(Request $request)
@@ -62,7 +62,7 @@ class HomeController extends Controller
 
         $pages = Page::all();
 
-        return view('lte.demo', ['photos' => $photos, 'lastweek' => $lastweek, 'photocount' => $photocount, 'pages' => $pages]);
+        return view('lte.demo', ['photos' => $photos, 'lastweek' => $lastweek, 'photocount' => $photocount, 'pages' => $pages, 'pagename' => 'Dashboard']);
     }
 
     public function NextPhoto(Request $request)
@@ -78,6 +78,6 @@ class HomeController extends Controller
 
         $pages = Page::all();
 
-        return view('lte.demo', ['photos' => $photos, 'lastweek' => $lastweek, 'photocount' => $photocount, 'pages' => $pages]);
+        return view('lte.demo', ['photos' => $photos, 'lastweek' => $lastweek, 'photocount' => $photocount, 'pages' => $pages, 'pagename' => 'Dashboard']);
     }
 }

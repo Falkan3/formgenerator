@@ -26,7 +26,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('REST.pages.create');
+        return view('REST.pages.create', ['pagename' => 'Page create']);
     }
 
     /**
@@ -66,7 +66,7 @@ class PageController extends Controller
     public function show($id)
     {
         $page = Page::findOrFail($id);
-        return view('REST.pages.show', ['page' => $page]);
+        return view('REST.pages.show', ['page' => $page, 'pagename' => 'Page show']);
     }
 
     /**
@@ -79,7 +79,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         $layouts = Layout::pluck('name', 'id');
-        return view('REST.pages.edit', ['page' => $page, 'layouts' => $layouts]);
+        return view('REST.pages.edit', ['page' => $page, 'layouts' => $layouts, 'pagename' => 'Page edit']);
     }
 
     /**

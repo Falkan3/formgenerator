@@ -1,21 +1,9 @@
 @extends($layout)
 @section('title')
-    Ankieta | ProperAd
+    Ankieta - zrobione! | ProperAd
 @stop
 
 @section('content')
-    <?php /*
-    @foreach($survey['questions'] as $item)
-        {{print_r($item['attributes'])}}
-    @endforeach
- */ ?>
-    @if ($errors->any())
-        <div class="container">
-            <div class="alert alert-danger">
-                <strong>Błąd!</strong> {{ rtrim(implode('', $errors->all(':message, ')), ', ').'.' }}
-            </div>
-        </div>
-    @endif
     <div class="content">
         <div class="container">
             <div class="row text-center">
@@ -23,68 +11,8 @@
                 <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">WIELKI TEKST</span></h3>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <section>
-                        <h1><span class="text-bold text-center">Wypełnij formularz</span></h1>
-                        @if(isset($survey['survey_step_title']))
-                        <h2><span class="text-center">{{$survey['survey_step_title']}}</span></h2>
-                        @endif
-
-                        <div class="contact-form padding-medium">
-                            {!! Form::open(['url' => ['survey/'.$survey['id'].'/step/'.$survey['step']], 'method' => 'post', 'id' => 'contact-form']) !!}
-
-                            @foreach($survey['questions'] as $item)
-                                <div class="container field-group">
-                                    <div class="col-xs-10 col-sm-11 header-ext"><p>{{$item->text}}</p></div>
-
-                                    @if($item->type == 'text')
-                                        <div class="col-xs-12">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
-                                            <a href="#" data-toggle="tooltip" data-placement="bottom"
-                                               title="{{$item->text}}">{{Form::text($item->name, '', ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź', 'required'])}}</a>
-                                        </div>
-                                    @elseif($item->type == 'radio')
-                                        <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
-                                            @foreach(json_decode($item->values) as $key=>$val)
-                                                <div class="col-xs-12">
-                                                    {{Form::radio($item->name, $key, 0, ['class' => "contact-form-field"])}}
-                                                    {{Form::label($item->name, $val)}}
-                                                    @if($key=="other")
-                                                        {{Form::text($key . '_' . $item->name, '', ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź'])}}
-                                                    @endif
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @elseif($item->type == 'checkbox')
-                                        <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
-                                            @foreach(json_decode($item->values, 1) as $key=>$val)
-                                                <div class="col-xs-12">
-                                                    {{Form::checkbox($item->name.'['.$key.']', 1, 0, ['class' => "contact-form-field"])}}
-                                                    {{Form::label($item->name, $val)}}
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @elseif($item->type == 'select')
-                                        <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
-                                            {{Form::select($item->name, [null=>'-']+json_decode($item->values, 1), null, ['class' => "contact-form-field", 'required'])}}
-                                        </div>
-                                    @elseif($item->type == 'multiselect')
-                                        <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
-                                            @foreach(json_decode($item->values) as $key=>$val)
-                                                <div class="col-xs-12 input-body padding-small">
-                                                    {{Form::select($item->name.'['.$key.']', [null=>'-']+$val->answers, null, ['class' => "contact-form-field", 'required'])}}
-                                                    {{Form::label($item->name.'['.$key.']', $val->question)}}
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                </div>
-                            @endforeach
-                            {{Form::submit('Dalej', ['class' => "btn btn-default"])}}
-                            {!! Form::close() !!}
-                        </div>
+                        <h1><span class="text-bold text-center">Dziękujemy</span></h1>
+                        <h2><span class="text-center">Dziękujemy za wypełnienie formularza.</span></h2>
                     </section>
                 </div>
             </div>

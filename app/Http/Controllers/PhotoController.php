@@ -27,7 +27,7 @@ class PhotoController extends Controller
      */
     public function create()
     {
-        return view('REST.photos.create');
+        return view('REST.photos.create', ['pagename' => 'Photo create']);
     }
 
     /**
@@ -85,7 +85,7 @@ class PhotoController extends Controller
     {
         $user_id = Auth::user()->id;
         $photo = Photo::where('id', $id)->where('user_id', $user_id)->get();
-        return view('REST.photos.show', ['photo' => $photo]);
+        return view('REST.photos.show', ['photo' => $photo, 'pagename' => 'Photo show']);
     }
 
     /**
@@ -97,7 +97,7 @@ class PhotoController extends Controller
     public function edit($id)
     {
         $photo = Photo::findOrFail($id);
-        return view('REST.photos.edit', ['photo' => $photo]);
+        return view('REST.photos.edit', ['photo' => $photo, 'pagename' => 'Photo edit']);
     }
 
     /**

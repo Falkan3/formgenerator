@@ -5,14 +5,14 @@ $(document).ready(function () {
     tooltips = $('[data-toggle="tooltip"]');
 
     if ($(window).width() > 768) {
-        tooltips.attr('data-placement', 'bottom');
+        //tooltips.attr('data-placement', 'bottom');
     }
     else {
-        tooltips.attr('data-placement', 'bottom');
+        //tooltips.attr('data-placement', 'bottom');
     }
 
     //Tooltips
-    tooltips.tooltip();
+    //tooltips.tooltip();
     //********************
 
     //Click anchors
@@ -35,7 +35,7 @@ $(document).ready(function () {
 
         }
         else {
-            tooltips.attr('data-placement', 'bottom');
+            //tooltips.attr('data-placement', 'bottom');
         }
 
     });

@@ -97,6 +97,11 @@ body {
     height: 50px;
     display: table;
     background-color: #fff;
+
+    position: absolute;
+    margin: 0;
+    top: -50px;
+    left: 0;
 }
 
 .contact-form .input-header p {
@@ -105,6 +110,7 @@ body {
     font-size: 24px;
     /*color: #ff9c00;*/
     color: #2babfc;
+    text-align: center;
 }
 
 .contact-form .header-ext {
@@ -114,6 +120,7 @@ body {
     /*background-color: #ff9c00;*/
     background: #2babfc;
     background-color: transparent;
+    margin-left: 95px !important;
 }
 
 .contact-form .header-ext p {
@@ -126,6 +133,10 @@ body {
     /*background-color: #ff9c00;*/
     background: #2babfc;
     background-color: transparent;
+}
+
+.contact-form .field-group.container {
+    width: auto;
 }
 
 .contact-form .field-group {
@@ -146,6 +157,14 @@ body {
     padding: 15px;
 }
 
+.contact-form .field-group .input-body select {
+    margin-right: 5px;
+}
+
+.contact-form .field-group .input-body.padding-small {
+    padding: 5px;
+}
+
 .contact-form {
     color: #555;
 }
@@ -154,7 +173,16 @@ body {
     margin-bottom: 30px;
 }
 
-.contact-form input[type="text"].contact-form-field, .contact-form input[type="textarea"].contact-form-field{
+.contact-form .field-group .input-body label {
+    vertical-align: middle;
+}
+
+.contact-form select.contact-form-field {
+    color: #555;
+    padding: 10px;
+}
+
+.contact-form input[type="text"].contact-form-field, .contact-form input[type="textarea"].contact-form-field {
     display: block;
     width: 100%;
     height: 50px;
@@ -167,28 +195,28 @@ body {
     outline: none;
     border: none;
     text-decoration: none;
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -webkit-transition: ease-in-out .5s;
+    -o-transition: ease-in-out .5s;
+    transition: ease-in-out .5s;
 }
 
-.contact-form .contact-form-field.wrong_input {
-    border: 2px solid #880000;
+.contact-form input[type="text"].contact-form-field.wrong_input, .contact-form input[type="textarea"].contact-form-field.wrong_input {
+    border: 1px solid #880000;
     background-color: #ffaca5;
 }
 
-.contact-form .contact-form-field.wrong_input:focus {
-    border: 2px solid #cc1304;
+.contact-form input[type="text"].contact-form-field.wrong_input:focus, .contact-form input[type="textarea"].contact-form-field.wrong_input:focus {
+    border: 1px solid #cc1304;
     outline: none;
 }
 
-.contact-form .contact-form-field.correct_input {
-    border: 2px solid #067200;
+.contact-form input[type="text"].contact-form-field.correct_input, .contact-form input[type="textarea"].contact-form-field.wrong_input:focus {
+    border: 1px solid #067200;
     background-color: #a7ff89;
 }
 
-.contact-form .contact-form-field.correct_input:focus {
-    border: 2px solid #07a300;
+.contact-form input[type="text"].contact-form-field.correct_input:focus, .contact-form input[type="textarea"].contact-form-field.wrong_input:focus {
+    border: 1px solid #07a300;
     outline: none;
 }
 
@@ -307,12 +335,20 @@ body {
     .contact-form .btn {
         padding: 5px;
     }
+
+    .contact-form .header-ext {
+        margin-left: 75px !important;
+    }
 }
 
 @media (max-width: 991px) {
     .contact-form {
         padding-left: 20px;
         padding-right: 20px;
+    }
+
+    .contact-form .header-ext {
+        margin-left: 55px !important;
     }
 }
 
@@ -339,6 +375,26 @@ body {
         top: 10px;
         left: -75px;
     }
+
+    .contact-form .field-group .input-body label {
+        max-width: 70%;
+    }
+
+    .contact-form .header-ext {
+        margin-left: 115px !important;
+    }
+}
+
+@media (max-width: 620px) {
+    .contact-form .header-ext {
+        margin-left: 85px !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .contact-form .header-ext {
+        margin-left: 65px !important;
+    }
 }
 
 @media (max-width: 420px) {
@@ -346,8 +402,8 @@ body {
         height: 80px;
     }
 
-    .contact-form .field-group .input-header {
-        margin-top: 30px;
+    .contact-form .header-ext {
+        margin-left: 55px !important;
     }
 }
 /* /Tiles *************************************************************************/
