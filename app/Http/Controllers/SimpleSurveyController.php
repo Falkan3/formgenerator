@@ -81,7 +81,7 @@ class SimpleSurveyController extends Controller
 
          $this->validate($request, $rules);
 
-         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->get();
+         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('ip', request()->ip())->get();
          if(count($old_result)>0)
              return redirect('/');
 
