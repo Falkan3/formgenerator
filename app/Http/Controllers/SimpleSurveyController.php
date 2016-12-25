@@ -7,17 +7,18 @@ use App\Survey;
 use App\Question;
 use App\SurveyResult;
 use App\Page;
+use Illuminate\Support\Facades\Cookie;
 
 class SimpleSurveyController extends Controller
 {
     public function checkIfDone($id)
     {
-        $result = SurveyResult::where('ip', request()->ip())->first();
+        $result = SurveyResult::where('cookie', Cookie::get('guest_id'))->first();//where('ip', request()->ip())->first();
         $lastStep = Question::where('survey_id', $id)->max('step');
 
         if(isset($result))
         {
-            $saved_step = SurveyResult::where('ip', request()->ip())->max('survey_step');
+            $saved_step = SurveyResult::where('cookie', Cookie::get('guest_id'))->max('survey_step'); //where('ip', request()->ip())
             if($saved_step == $lastStep)
             {
                 return true;
@@ -29,12 +30,12 @@ class SimpleSurveyController extends Controller
 
     public function getSurvey($id, $step = 1)
     {
-        $result = SurveyResult::where('ip', request()->ip())->first();
+        $result = SurveyResult::where('cookie', Cookie::get('guest_id'))->first();//where('ip', request()->ip())->first();
         $lastStep = Question::where('survey_id', $id)->max('step');
 
         if(isset($result))
         {
-            $saved_step = SurveyResult::where('ip', request()->ip())->max('survey_step');
+            $saved_step = SurveyResult::where('cookie', Cookie::get('guest_id'))->max('survey_step');
 
             $data = $this->getSurveyStep($id, $saved_step+1);
             return $data;
@@ -81,7 +82,8 @@ class SimpleSurveyController extends Controller
 
          $this->validate($request, $rules);
 
-         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('ip', request()->ip())->get();
+         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', Cookie::get('guest_id'))->get(); //->where('ip', request()->ip())->get();
+
          if(count($old_result)>0)
              return redirect('/');
 
@@ -90,6 +92,16 @@ class SimpleSurveyController extends Controller
          $result->survey_step = $step;
          $result->answers = json_encode($request->except('_token'));
          $result->ip = request()->ip();
+
+         $cookie = Cookie::get('guest_id');
+
+         if(strlen($cookie)==0) {
+             $raw_cookie = uniqid();
+             $cookie = cookie('guest_id', $raw_cookie, 1440);
+             $result->cookie = $raw_cookie;
+         }
+         else
+             $result->cookie = $cookie;
          $result->save();
 
          if($id==1 && $step==3)
@@ -101,19 +113,26 @@ class SimpleSurveyController extends Controller
                  $result->survey_step = 4;
                  $result->answers = json_encode([]);
                  $result->ip = request()->ip();
+                 if(strlen($cookie)==0) {
+                     $raw_cookie = uniqid();
+                     $cookie = cookie('guest_id', $raw_cookie, 1440);
+                     $result->cookie = $raw_cookie;
+                 }
+                 else
+                     $result->cookie = $cookie;
                  $result->save();
 
-                 return redirect('survey/done/'.$id);
+                 return redirect('survey/done/'.$id)->withCookie($cookie);
              }
          }
 
          //$page = Page::findOrFail(1);
          if ($step+1 > $lastStep) {
-             return redirect('survey/done/'.$id);
+             return redirect('survey/done/'.$id)->withCookie($cookie);
          }
          else
          {
-             return redirect('/');
+             return redirect('/')->withCookie($cookie);
              //return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $this->getSurvey($id, $step+1)]);
          }
      }

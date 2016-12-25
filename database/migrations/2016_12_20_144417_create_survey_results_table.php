@@ -18,10 +18,9 @@ class CreateSurveyResultsTable extends Migration
             $table->integer('survey_id');
             $table->integer('survey_step');
             $table->text('answers');
+            $table->string('cookie');
             $table->string('ip');
             $table->timestamps();
-
-            $table->unique(array('survey_step', 'ip'));
         });
     }
 
