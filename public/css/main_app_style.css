@@ -254,13 +254,15 @@ body {
     font-weight: bold;
     border: none;
     border-radius: 0;
-    background-color: #3a3a38;
+    background-color: #fff;
     white-space: normal;
-    color: #fff;
+    color: #ff9c00;
 }
 
 .contact-form .btn:hover {
-    background-color: rgb(69, 99, 91);
+    background-color: #ff9c00;
+    border: 1px solid #fff;
+    color: #fff;
 }
 
 .col-sm-1.center-block, .col-sm-10.center-block, .col-sm-11.center-block, .col-sm-12.center-block, .col-sm-2.center-block, .col-sm-3.center-block, .col-sm-4.center-block, .col-sm-5.center-block, .col-sm-6.center-block, .col-sm-7.center-block, .col-sm-8.center-block, .col-sm-9.center-block {
