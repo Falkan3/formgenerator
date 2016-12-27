@@ -50,7 +50,7 @@
                                         <div class="col-xs-12 input-body">
                                             <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values) as $key=>$val)
-                                                @if(isset($answers) && isset($answers[$item->name]))
+                                                @if(isset($answers) && $answers[$item->name] == $key)
                                                     <?php $answer = $answers[$item->name]; ?>
                                                 @else
                                                     <?php $answer = 0; ?>
@@ -59,7 +59,7 @@
                                                     {{Form::radio($item->name, $key, $answer, ['class' => "contact-form-field"])}}
                                                     {{Form::label($item->name, $val)}}
                                                     @if($key=="other")
-                                                        @if(isset($answers) && isset($answers['other_'.$item->name]))
+                                                        @if(isset($answers) && $answers[$item->name] == 'other' && isset($answers['other_'.$item->name]))
                                                             <?php $answer = $answers['other_'.$item->name]; ?>
                                                         @else
                                                             <?php $answer = ''; ?>
