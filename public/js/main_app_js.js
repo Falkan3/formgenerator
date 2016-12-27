@@ -40,6 +40,7 @@ $(document).ready(function () {
 
     });
 
+    /*
     $.notify(
         "Start",
         { position:"b l", className:"info" }
@@ -52,5 +53,6 @@ $(document).ready(function () {
             { position:"b l", className:"black", showDuration: 800, autoHideDelay: 7500, }
         );
     }, 20000);
+    */
 
 });

@@ -17,7 +17,7 @@
         </div>
     @endif
     <div class="content">
-        <div class="container">
+        <div class="container narrow">
             <div class="row text-center">
                 <h3 class="no-margin">FORMULARZ <span class="highlight">DUŻY TEKST</span></h3>
                 <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">WIELKI TEKST</span></h3>
@@ -33,48 +33,69 @@
 
                             @foreach($survey['questions'] as $item)
                                 <div class="container field-group">
+                                    <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                     <div class="col-xs-10 col-sm-11 header-ext"><p>{{$item->text}}</p></div>
 
                                     @if($item->type == 'text')
+                                        @if(isset($answers))
+                                            <?php $answer = $answers[$item->name]; ?>
+                                        @else
+                                            <?php $answer = ''; ?>
+                                        @endif
                                         <div class="col-xs-12">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             <a href="#" data-toggle="tooltip" data-placement="bottom"
-                                               title="{{$item->text}}">{{Form::text($item->name, '', ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź', 'required'])}}</a>
+                                               title="{{$item->text}}">{{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź', 'required'])}}</a>
                                         </div>
                                     @elseif($item->type == 'radio')
                                         <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values) as $key=>$val)
+                                                @if(isset($answers) && isset($answers[$item->name]))
+                                                    <?php $answer = $answers[$item->name]; ?>
+                                                @else
+                                                    <?php $answer = 0; ?>
+                                                @endif
                                                 <div class="col-xs-12">
-                                                    {{Form::radio($item->name, $key, 0, ['class' => "contact-form-field"])}}
+                                                    {{Form::radio($item->name, $key, $answer, ['class' => "contact-form-field"])}}
                                                     {{Form::label($item->name, $val)}}
                                                     @if($key=="other")
-                                                        {{Form::text($key . '_' . $item->name, '', ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź'])}}
+                                                        @if(isset($answers) && isset($answers['other_'.$item->name]))
+                                                            <?php $answer = $answers['other_'.$item->name]; ?>
+                                                        @else
+                                                            <?php $answer = ''; ?>
+                                                        @endif
+                                                        {{Form::text($key . '_' . $item->name, $answer, ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź'])}}
                                                     @endif
                                                 </div>
                                             @endforeach
                                         </div>
                                     @elseif($item->type == 'checkbox')
                                         <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values, 1) as $key=>$val)
+                                                @if(isset($answers) && isset($answers[$item->name][$key]))
+                                                    <?php $answer = $answers[$item->name][$key]; ?>
+                                                @else
+                                                    <?php $answer = 0; ?>
+                                                @endif
                                                 <div class="col-xs-12">
-                                                    {{Form::checkbox($item->name.'['.$key.']', 1, 0, ['class' => "contact-form-field"])}}
+                                                    {{Form::checkbox($item->name.'['.$key.']', 1, $answer, ['class' => "contact-form-field"])}}
                                                     {{Form::label($item->name, $val)}}
                                                 </div>
                                             @endforeach
                                         </div>
                                     @elseif($item->type == 'select')
                                         <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             {{Form::select($item->name, [null=>'-']+json_decode($item->values, 1), null, ['class' => "contact-form-field", 'required'])}}
                                         </div>
                                     @elseif($item->type == 'multiselect')
                                         <div class="col-xs-12 input-body">
-                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values) as $key=>$val)
+                                                @if(isset($answers) && isset($answers[$item->name.'['.$key.']']))
+                                                    <?php $answer = $answers[$item->name.'['.$key.']']; ?>
+                                                @else
+                                                    <?php $answer = null; ?>
+                                                @endif
                                                 <div class="col-xs-12 input-body padding-small">
-                                                    {{Form::select($item->name.'['.$key.']', [null=>'-']+$val->answers, null, ['class' => "contact-form-field", 'required'])}}
+                                                    {{Form::select($item->name.'['.$key.']', [null=>'-']+$val->answers, $answer, ['class' => "contact-form-field", 'required'])}}
                                                     {{Form::label($item->name.'['.$key.']', $val->question)}}
                                                 </div>
                                             @endforeach
@@ -83,6 +104,9 @@
                                 </div>
                             @endforeach
                             {{Form::submit('Dalej', ['class' => "btn btn-default"])}}
+                            @if($survey['step']>1)
+                                <a class="btn" href="{{url('survey/previous' . '/' . $survey['id'] . '/' . $survey['step'])}}">Powrót</a>
+                            @endif
                             {!! Form::close() !!}
                         </div>
                     </section>

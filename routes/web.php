@@ -39,6 +39,7 @@ Route::group(['middleware' => ['web']], function () {
         //Route::post('{id}', 'SurveyController@postSurvey');
         //Route::get('{id}/step/{step}', 'SurveyController@generateSurvey');
         Route::post('{id}/step/{step}', 'SimpleSurveyController@postSurveyStep');
+        Route::get('previous/{id}/{step}', 'SimpleSurveyController@previousStep');
         Route::get('done/{id}', 'SimpleSurveyController@getSurveyDone');
     });
 });

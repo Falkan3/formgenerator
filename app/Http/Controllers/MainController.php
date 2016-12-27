@@ -17,15 +17,18 @@ class MainController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($survey = null, $answers = null)
     {
         $page = Page::findOrFail(1);
-        if(app('App\Http\Controllers\SimpleSurveyController')->checkIfDone(1) == true)
-            return view('pages.alreadydone', ['layout' => $page->getLayout->location]);
-        else
-            $survey =  app('App\Http\Controllers\SimpleSurveyController')->getSurvey(1);
 
-        return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $survey]);
+        if(is_null($survey)) {
+            if (app('App\Http\Controllers\SimpleSurveyController')->checkIfDone(1) == true)
+                return view('pages.alreadydone', ['layout' => $page->getLayout->location]);
+            else
+                $survey = app('App\Http\Controllers\SimpleSurveyController')->getSurvey(1);
+        }
+
+        return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $survey, 'answers' => json_decode($answers, 1)]);
     }
 
     public function ViewPage($id)

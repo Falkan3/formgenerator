@@ -73,8 +73,7 @@ span.text-bold
 /* Content *************************************************************************/
 
 body {
-    /*background: #ff9c00;*/ /*#227ab2;*/
-    background: #2babfc;
+    background: #ff9c00; /*#227ab2;*/
     font-family: 'Montserrat', sans-serif;
     color: #000;
     font-size: 14px;
@@ -94,22 +93,17 @@ body {
 }
 
 .contact-form .input-header {
-    height: 50px;
     display: table;
+    height: 50px;
     background-color: #fff;
-
-    position: absolute;
     margin: 0;
-    top: -50px;
-    left: 0;
 }
 
 .contact-form .input-header p {
     display: table-cell;
     vertical-align: middle;
     font-size: 24px;
-    /*color: #ff9c00;*/
-    color: #2babfc;
+    color: #ff9c00;
     text-align: center;
 }
 
@@ -117,10 +111,7 @@ body {
     display: table;
     height: 50px;
     color: #fff;
-    /*background-color: #ff9c00;*/
-    background: #2babfc;
-    background-color: transparent;
-    margin-left: 95px !important;
+    background-color: #fff;
 }
 
 .contact-form .header-ext p {
@@ -128,11 +119,9 @@ body {
     vertical-align: middle;
     text-align: left;
     padding-left: 15px;
-    color: #000;
+    color: #ff9c00;
+    font-size: large;
     /*color: #fff; */
-    /*background-color: #ff9c00;*/
-    background: #2babfc;
-    background-color: transparent;
 }
 
 .contact-form .field-group.container {
@@ -142,7 +131,8 @@ body {
 .contact-form .field-group {
     overflow: visible;
     margin: 0 0 30px 0;
-    padding: 0;
+    padding: 10px 0 0 0;
+    background-color: #fff;
 }
 
 .contact-form .field-group div {
@@ -258,6 +248,7 @@ body {
 .contact-form .btn {
     display: block;
     padding: 15px 30px;
+    margin-top: 15px;
     width: 100%;
     font-size: 24px;
     font-weight: bold;
@@ -320,7 +311,7 @@ body {
 
 .notifyjs-bootstrap-black {
     color: #fff;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Merriweather Sans', sans-serif;
     font-weight: normal !important;
     background-color: #212121 !important;
     border-color: #000 !important;
@@ -331,13 +322,21 @@ body {
     font-size: 12px;
 }
 
+@media (min-width: 992px) {
+    .container.narrow {
+        width: 780px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container.narrow {
+        width: 900px;
+    }
+}
+
 @media (max-width: 1200px) {
     .contact-form .btn {
         padding: 5px;
-    }
-
-    .contact-form .header-ext {
-        margin-left: 75px !important;
     }
 }
 
@@ -345,10 +344,6 @@ body {
     .contact-form {
         padding-left: 20px;
         padding-right: 20px;
-    }
-
-    .contact-form .header-ext {
-        margin-left: 55px !important;
     }
 }
 
@@ -379,32 +374,16 @@ body {
     .contact-form .field-group .input-body label {
         max-width: 70%;
     }
-
-    .contact-form .header-ext {
-        margin-left: 115px !important;
-    }
 }
 
 @media (max-width: 620px) {
-    .contact-form .header-ext {
-        margin-left: 85px !important;
-    }
 }
 
 @media (max-width: 520px) {
-    .contact-form .header-ext {
-        margin-left: 65px !important;
-    }
 }
 
 @media (max-width: 420px) {
-    .contact-form .field-group .header-ext {
-        height: 80px;
-    }
 
-    .contact-form .header-ext {
-        margin-left: 55px !important;
-    }
 }
 /* /Tiles *************************************************************************/
 

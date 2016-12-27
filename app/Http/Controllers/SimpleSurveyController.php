@@ -37,14 +37,15 @@ class SimpleSurveyController extends Controller
         {
             $saved_step = SurveyResult::where('cookie', Cookie::get('guest_id'))->max('survey_step');
 
-            $data = $this->getSurveyStep($id, $saved_step+1);
-            return $data;
+            if($step > $lastStep)
+                $data = $this->getSurveyStep($id, $saved_step+1);
+            else
+                $data = $this->getSurveyStep($id, $step);
         }
         else
-        {
             $data = $this->getSurveyStep($id, 1);
-            return $data;
-        }
+
+        return $data;
     }
 
     public function getSurveyStep($id, $step)
@@ -82,12 +83,13 @@ class SimpleSurveyController extends Controller
 
          $this->validate($request, $rules);
 
-         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', Cookie::get('guest_id'))->get(); //->where('ip', request()->ip())->get();
+         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', Cookie::get('guest_id'))->first(); //->where('ip', request()->ip())->get();
 
          if(count($old_result)>0)
-             return redirect('/');
+             $result = $old_result;
+         else
+             $result = new SurveyResult;
 
-         $result = new SurveyResult;
          $result->survey_id = $id;
          $result->survey_step = $step;
          $result->answers = json_encode($request->except('_token'));
@@ -108,7 +110,11 @@ class SimpleSurveyController extends Controller
          {
              if($request->pyt15=='other')
              {
-                 $result = new SurveyResult;
+                 if(count($old_result)>0)
+                     $result = $old_result;
+                 else
+                     $result = new SurveyResult;
+
                  $result->survey_id = $id;
                  $result->survey_step = 4;
                  $result->answers = json_encode([]);
@@ -132,7 +138,8 @@ class SimpleSurveyController extends Controller
          }
          else
          {
-             return redirect('/')->withCookie($cookie);
+             //return redirect('/')->withCookie($cookie);
+             return app('App\Http\Controllers\MainController')->index($this->getSurvey($id,$step+1))->withCookie($cookie);
              //return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $this->getSurvey($id, $step+1)]);
          }
      }
@@ -148,5 +155,29 @@ class SimpleSurveyController extends Controller
          {
              return redirect ('/');
          }
+     }
+
+     public function previousStep($id, $step) {
+         $result = SurveyResult::where('cookie', Cookie::get('guest_id'))->first();//where('ip', request()->ip())->first();
+         //$lastStep = Question::where('survey_id', $id)->max('step');
+
+         if(isset($result))
+         {
+             $saved_step = SurveyResult::where('cookie', Cookie::get('guest_id'))->max('survey_step');
+             if($saved_step>0 && $step-1 > 0)
+             {
+                 $data = $this->getSurveyStep($id, $step-1);
+                 $answers = SurveyResult::where('cookie', Cookie::get('guest_id'))->where('survey_step', $step-1)->first()->answers;
+             }
+         }
+         else
+         {
+             $data = $this->getSurveyStep($id, 1);
+         }
+
+         //$page = Page::findOrFail(1);
+
+         //return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $data]);
+         return app('App\Http\Controllers\MainController')->index($data, $answers);
      }
 }
