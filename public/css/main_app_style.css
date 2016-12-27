@@ -93,10 +93,14 @@ body {
 }
 
 .contact-form .input-header {
-    display: table;
     height: 50px;
+    display: table;
     background-color: #fff;
+
+    position: absolute;
     margin: 0;
+    top: -50px;
+    left: 0;
 }
 
 .contact-form .input-header p {
@@ -111,7 +115,9 @@ body {
     display: table;
     height: 50px;
     color: #fff;
-    background-color: #fff;
+    background-color: #ff9c00;
+    background-color: transparent;
+    margin-left: 95px !important;
 }
 
 .contact-form .header-ext p {
@@ -119,7 +125,7 @@ body {
     vertical-align: middle;
     text-align: left;
     padding-left: 15px;
-    color: #ff9c00;
+    color: #fff;
     font-size: large;
     /*color: #fff; */
 }
@@ -132,7 +138,6 @@ body {
     overflow: visible;
     margin: 0 0 30px 0;
     padding: 10px 0 0 0;
-    background-color: #fff;
 }
 
 .contact-form .field-group div {
@@ -340,12 +345,20 @@ body {
     .contact-form .btn {
         padding: 5px;
     }
+
+    .contact-form .header-ext {
+        margin-left: 75px !important;
+    }
 }
 
 @media (max-width: 991px) {
     .contact-form {
         padding-left: 20px;
         padding-right: 20px;
+    }
+
+    .contact-form .header-ext {
+        margin-left: 55px !important;
     }
 }
 
@@ -376,16 +389,32 @@ body {
     .contact-form .field-group .input-body label {
         max-width: 70%;
     }
+
+    .contact-form .header-ext {
+        margin-left: 115px !important;
+    }
 }
 
 @media (max-width: 620px) {
+    .contact-form .header-ext {
+        margin-left: 85px !important;
+    }
 }
 
 @media (max-width: 520px) {
+    .contact-form .header-ext {
+        margin-left: 65px !important;
+    }
 }
 
 @media (max-width: 420px) {
+    .contact-form .field-group .header-ext {
+        height: 80px;
+    }
 
+    .contact-form .header-ext {
+        margin-left: 55px !important;
+    }
 }
 /* /Tiles *************************************************************************/
 

@@ -33,7 +33,6 @@
 
                             @foreach($survey['questions'] as $item)
                                 <div class="container field-group">
-                                    <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                     <div class="col-xs-10 col-sm-11 header-ext"><p>{{$item->text}}</p></div>
 
                                     @if($item->type == 'text')
@@ -43,11 +42,13 @@
                                             <?php $answer = ''; ?>
                                         @endif
                                         <div class="col-xs-12">
+                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             <a href="#" data-toggle="tooltip" data-placement="bottom"
                                                title="{{$item->text}}">{{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź', 'required'])}}</a>
                                         </div>
                                     @elseif($item->type == 'radio')
                                         <div class="col-xs-12 input-body">
+                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values) as $key=>$val)
                                                 @if(isset($answers) && isset($answers[$item->name]))
                                                     <?php $answer = $answers[$item->name]; ?>
@@ -70,6 +71,7 @@
                                         </div>
                                     @elseif($item->type == 'checkbox')
                                         <div class="col-xs-12 input-body">
+                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values, 1) as $key=>$val)
                                                 @if(isset($answers) && isset($answers[$item->name][$key]))
                                                     <?php $answer = $answers[$item->name][$key]; ?>
@@ -84,10 +86,12 @@
                                         </div>
                                     @elseif($item->type == 'select')
                                         <div class="col-xs-12 input-body">
+                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             {{Form::select($item->name, [null=>'-']+json_decode($item->values, 1), null, ['class' => "contact-form-field", 'required'])}}
                                         </div>
                                     @elseif($item->type == 'multiselect')
                                         <div class="col-xs-12 input-body">
+                                            <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values) as $key=>$val)
                                                 @if(isset($answers) && isset($answers[$item->name.'['.$key.']']))
                                                     <?php $answer = $answers[$item->name.'['.$key.']']; ?>
