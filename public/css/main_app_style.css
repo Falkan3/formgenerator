@@ -259,9 +259,9 @@ body {
     font-weight: bold;
     border: none;
     border-radius: 0;
-    background-color: #fff;
+    background-color: #333;
     white-space: normal;
-    color: #ff9c00;
+    color: #fff;
 }
 
 .contact-form .btn:hover {
