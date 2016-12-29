@@ -8,6 +8,7 @@ use App\Question;
 use App\SurveyResult;
 use App\Page;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Cookie\CookieJar;
 
 class SimpleSurveyController extends Controller
 {
@@ -28,7 +29,7 @@ class SimpleSurveyController extends Controller
         return false;
     }
 
-    public function getSurvey($id, $step = 1)
+    public function getSurvey($id, $step = null)
     {
         $result = SurveyResult::where('cookie', Cookie::get('guest_id'))->first();//where('ip', request()->ip())->first();
         $lastStep = Question::where('survey_id', $id)->max('step');
@@ -37,7 +38,7 @@ class SimpleSurveyController extends Controller
         {
             $saved_step = SurveyResult::where('cookie', Cookie::get('guest_id'))->max('survey_step');
 
-            if($step > $lastStep)
+            if(is_null($step) || $step > $lastStep)
                 $data = $this->getSurveyStep($id, $saved_step+1);
             else
                 $data = $this->getSurveyStep($id, $step);
@@ -71,7 +72,7 @@ class SimpleSurveyController extends Controller
         return $questions;
     }
 
-     public function postSurveyStep($id, $step, Request $request)
+     public function postSurveyStep($id, $step, Request $request, CookieJar $cookieJar)
      {
          $questions = $this->fetchStepQuestions($id, $step);
          $lastStep = Question::where('survey_id', $id)->max('step');
@@ -104,12 +105,14 @@ class SimpleSurveyController extends Controller
          }
          else
              $result->cookie = $cookie;
+         $cookieJar->queue(cookie('guest_id', $cookie, 1440));
          $result->save();
 
          if($id==1 && $step==3)
          {
              if($request->pyt15=='other')
              {
+                 $old_result = SurveyResult::where('survey_id', 1)->where('survey_step', 4)->where('cookie', Cookie::get('guest_id'))->first();
                  if(count($old_result)>0)
                      $result = $old_result;
                  else
