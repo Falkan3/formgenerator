@@ -81,6 +81,14 @@
                                                 <div class="col-xs-12">
                                                     {{Form::checkbox($item->name.'['.$key.']', 1, $answer, ['class' => "contact-form-field"])}}
                                                     {{Form::label($item->name, $val)}}
+                                                    @if($key=="other")
+                                                        @if(isset($answers) && $answers[$item->name]['other'] == '1' && isset($answers['other_'.$item->name]))
+                                                            <?php $answer = $answers['other_'.$item->name]; ?>
+                                                        @else
+                                                            <?php $answer = ''; ?>
+                                                        @endif
+                                                        {{Form::text($key . '_' . $item->name, $answer, ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź'])}}
+                                                    @endif
                                                 </div>
                                             @endforeach
                                         </div>
