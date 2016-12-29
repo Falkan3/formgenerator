@@ -4,17 +4,17 @@ $(document).ready(function() {
     text.on("input", function() {
         if(!textIsValid($(this).val()))
         {
-            $(this).removeClass("correct_input");
+            //$(this).removeClass("correct_input");
             $(this).addClass("wrong_input");
         }
         else
         {
-            $(this).addClass("correct_input");
+            //$(this).addClass("correct_input");
             $(this).removeClass("wrong_input");
         }
         if($(this).val().length==0) {
             $(this).removeClass("wrong_input");
-            $(this).removeClass("correct_input");
+            //$(this).removeClass("correct_input");
         }
     });
 });
