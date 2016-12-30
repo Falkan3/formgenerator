@@ -59,7 +59,7 @@
                                                     {{Form::radio($item->name, $key, $answer, ['class' => "contact-form-field"])}}
                                                     {{Form::label($item->name, $val)}}
                                                     @if($key=="other")
-                                                        @if(isset($answers) && $answers[$item->name] == 'other' && isset($answers['other_'.$item->name]))
+                                                        @if(isset($answers[$item->name]) && $answers[$item->name] == 'other' && isset($answers['other_'.$item->name]))
                                                             <?php $answer = $answers['other_'.$item->name]; ?>
                                                         @else
                                                             <?php $answer = ''; ?>
@@ -82,7 +82,7 @@
                                                     {{Form::checkbox($item->name.'['.$key.']', 1, $answer, ['class' => "contact-form-field"])}}
                                                     {{Form::label($item->name, $val)}}
                                                     @if($key=="other")
-                                                        @if(isset($answers) && $answers[$item->name]['other'] == '1' && isset($answers['other_'.$item->name]))
+                                                        @if(isset($answers[$item->name]['other']) && $answers[$item->name]['other'] == '1' && isset($answers['other_'.$item->name]))
                                                             <?php $answer = $answers['other_'.$item->name]; ?>
                                                         @else
                                                             <?php $answer = ''; ?>

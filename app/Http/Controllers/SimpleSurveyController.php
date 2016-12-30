@@ -31,12 +31,12 @@ class SimpleSurveyController extends Controller
 
     public function getSurvey($id, $step = null)
     {
-        $result = SurveyResult::where('cookie', Cookie::get('guest_id'))->first();//where('ip', request()->ip())->first();
+        $result = SurveyResult::where('cookie', Cookie::get(config('app.cookie_prefix').'guest_id'))->first();//where('ip', request()->ip())->first();
         $lastStep = Question::where('survey_id', $id)->max('step');
 
         if(isset($result))
         {
-            $saved_step = SurveyResult::where('cookie', Cookie::get('guest_id'))->max('survey_step');
+            $saved_step = SurveyResult::where('cookie', Cookie::get(config('app.cookie_prefix').'guest_id'))->max('survey_step');
 
             if(is_null($step) || $step > $lastStep)
                 $data = $this->getSurveyStep($id, $saved_step+1);
@@ -84,7 +84,7 @@ class SimpleSurveyController extends Controller
 
          $this->validate($request, $rules);
 
-         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', Cookie::get('guest_id'))->first(); //->where('ip', request()->ip())->get();
+         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', Cookie::get(config('app.cookie_prefix').'guest_id'))->first(); //->where('ip', request()->ip())->get();
 
          if(count($old_result)>0)
              $result = $old_result;
@@ -96,23 +96,23 @@ class SimpleSurveyController extends Controller
          $result->answers = json_encode($request->except('_token'));
          $result->ip = request()->ip();
 
-         $cookie = Cookie::get('guest_id');
+         $cookie = Cookie::get(config('app.cookie_prefix').'guest_id');
 
-         if(strlen($cookie)==0) {
+         if(is_null($cookie)) {
              $raw_cookie = uniqid();
-             $cookie = cookie('guest_id', $raw_cookie, 1440);
+             $cookie = cookie(config('app.cookie_prefix').'guest_id', $raw_cookie, 1440);
              $result->cookie = $raw_cookie;
          }
          else
              $result->cookie = $cookie;
-         $cookieJar->queue(cookie('guest_id', $cookie, 1440));
+         $cookieJar->queue(cookie(config('app.cookie_prefix').'guest_id', $cookie, 1440));
          $result->save();
 
          if($id==1 && $step==3)
          {
              if($request->pyt15=='other')
              {
-                 $old_result = SurveyResult::where('survey_id', 1)->where('survey_step', 4)->where('cookie', Cookie::get('guest_id'))->first();
+                 $old_result = SurveyResult::where('survey_id', 1)->where('survey_step', 4)->where('cookie', Cookie::get(config('app.cookie_prefix').'guest_id'))->first();
                  if(count($old_result)>0)
                      $result = $old_result;
                  else
@@ -124,7 +124,7 @@ class SimpleSurveyController extends Controller
                  $result->ip = request()->ip();
                  if(strlen($cookie)==0) {
                      $raw_cookie = uniqid();
-                     $cookie = cookie('guest_id', $raw_cookie, 1440);
+                     $cookie = cookie(config('app.cookie_prefix').'guest_id', $raw_cookie, 1440);
                      $result->cookie = $raw_cookie;
                  }
                  else
@@ -161,16 +161,16 @@ class SimpleSurveyController extends Controller
      }
 
      public function previousStep($id, $step) {
-         $result = SurveyResult::where('cookie', Cookie::get('guest_id'))->first();//where('ip', request()->ip())->first();
+         $result = SurveyResult::where('cookie', Cookie::get(config('app.cookie_prefix').'guest_id'))->first();//where('ip', request()->ip())->first();
          //$lastStep = Question::where('survey_id', $id)->max('step');
 
          if(isset($result))
          {
-             $saved_step = SurveyResult::where('cookie', Cookie::get('guest_id'))->max('survey_step');
+             $saved_step = SurveyResult::where('cookie', Cookie::get(config('app.cookie_prefix').'guest_id'))->max('survey_step');
              if($saved_step>0 && $step-1 > 0)
              {
                  $data = $this->getSurveyStep($id, $step-1);
-                 $answers = SurveyResult::where('cookie', Cookie::get('guest_id'))->where('survey_step', $step-1)->first()->answers;
+                 $answers = SurveyResult::where('cookie', Cookie::get(config('app.cookie_prefix').'guest_id'))->where('survey_step', $step-1)->first()->answers;
              }
          }
          else
