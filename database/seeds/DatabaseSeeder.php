@@ -219,6 +219,18 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
+        //page 5
+        /*
+        Question::create(['survey_id' => 1, 'step' => 5, 'number' => 19, 'name' => 'pyt19', 'type' => 'text', 'text' =>
+            'Podaj swoje imię', 'values' => [], 'rule' => 'required|min:1|max:50']);
+
+        Question::create(['survey_id' => 1, 'step' => 5, 'number' => 20, 'name' => 'pyt20', 'type' => 'text', 'text' =>
+            'Podaj swoje nazwisko', 'values' => [], 'rule' => 'required|min:1|max:50']);
+
+        Question::create(['survey_id' => 1, 'step' => 5, 'number' => 21, 'name' => 'pyt21', 'type' => 'text', 'text' =>
+            'Podaj swój adres E-mail', 'values' => [], 'rule' => 'required|min:1|max:50']);
+        */
+
         Model::reguard();
     }
 }

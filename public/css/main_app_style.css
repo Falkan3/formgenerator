@@ -76,9 +76,9 @@ span.text-bold
 /* Content *************************************************************************/
 
 body {
-    background: #ff9c00; /*#227ab2;*/
+    background: #afca0b; /*#227ab2;*/
     font-family: 'Montserrat', sans-serif;
-    color: #000;
+    color: #006a30;
     font-size: 14px;
     margin: 0;
     padding: 0;
@@ -110,7 +110,7 @@ body {
     display: table-cell;
     vertical-align: middle;
     font-size: 24px;
-    color: #ff9c00;
+    color: #afca0b;
     text-align: center;
 }
 
@@ -118,7 +118,7 @@ body {
     display: table;
     height: 50px;
     color: #fff;
-    background-color: #ff9c00;
+    background-color: #afca0b;
     background-color: transparent;
     margin-left: 95px !important;
 }
@@ -128,7 +128,7 @@ body {
     vertical-align: middle;
     text-align: left;
     padding-left: 15px;
-    color: #fff;
+    color: #006a30;
     font-size: large;
     /*color: #fff; */
 }
@@ -164,7 +164,7 @@ body {
 }
 
 .contact-form {
-    color: #555;
+    color: #006a30;
 }
 
 .contact-form .input-body {
@@ -176,7 +176,7 @@ body {
 }
 
 .contact-form select.contact-form-field {
-    color: #555;
+    color: #006a30;
     padding: 10px;
 }
 
@@ -187,7 +187,7 @@ body {
     padding: 6px 12px;
     font-size: 14px;
     line-height: 1.42857143;
-    color: #555;
+    color: #006a30;
     background-color: #fff;
     background-image: none;
     outline: none;
@@ -260,16 +260,16 @@ body {
     width: 100%;
     font-size: 24px;
     font-weight: bold;
-    border: 1px solid #333;
+    border: 1px solid #006a30;
     border-radius: 0;
-    background-color: #333;
+    background-color: #006a30;
     white-space: normal;
     color: #fff;
 }
 
 .contact-form .btn:hover {
-    background-color: #ff9c00;
-    border: 1px solid #fff;
+    background-color: #0a6a11;
+    border: 1px solid #0a6a11;
     color: #fff;
 }
 
