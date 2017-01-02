@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('survey_id')->unsigned()->default(1);
             $table->integer('step')->unsigned();
             $table->integer('number')->unsigned();
+            $table->string('custom_id')->default('');
             $table->string('name');
             $table->string('type');
             $table->string('text');

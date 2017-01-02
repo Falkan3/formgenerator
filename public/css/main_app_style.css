@@ -273,6 +273,23 @@ body {
     color: #fff;
 }
 
+.contact-form .btn.shrinked-next {
+    width: 70%;
+    float: right;
+}
+
+.contact-form .btn.shrinked-back {
+    width: 30%;
+    float: left;
+    background-color: #ff2806;
+    border-color: #ff2806;
+}
+
+.contact-form .btn.shrinked-back:hover {
+    background-color: #ff0200;
+    border: 1px solid #ff0200;
+}
+
 .col-sm-1.center-block, .col-sm-10.center-block, .col-sm-11.center-block, .col-sm-12.center-block, .col-sm-2.center-block, .col-sm-3.center-block, .col-sm-4.center-block, .col-sm-5.center-block, .col-sm-6.center-block, .col-sm-7.center-block, .col-sm-8.center-block, .col-sm-9.center-block {
     float: none;
 }

@@ -22,7 +22,7 @@ return [
     "different" => ":attribute i :other muszą być różne",
     "digits" => ":attribute musi mieć :digits cyfr",
     "digits_between" => ":attribute musi mieć pomiędzy :min a :max cyfr",
-    "email" => ":attribute must be a valid email address",
+    "email" => ":attribute musi być prawidłowym adresem E-mail",
     "exists" => "wybrany :attribute jest nieprawidłowy",
     "image" => ":attribute musi być obrazkiem",
     "in" => "wybrany :attribute jest nieprawidłowy",

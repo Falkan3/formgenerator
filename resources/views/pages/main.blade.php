@@ -27,6 +27,7 @@
                         @if(isset($survey['survey_step_title']))
                         <h2><span class="text-center">{{$survey['survey_step_title']}}</span></h2>
                         @endif
+                        <h3><span class="highlight big colored">Strona {{$survey['step'] . '/' . $survey['last_step']}}</span></h3>
 
                         <div class="contact-form padding-medium">
                             {!! Form::open(['url' => ['survey/'.$survey['id'].'/step/'.$survey['step']], 'method' => 'post', 'id' => 'contact-form']) !!}
@@ -41,10 +42,15 @@
                                         @else
                                             <?php $answer = ''; ?>
                                         @endif
+                                        @if(isset($item['custom_id']))
+                                            <?php $id = $item['custom_id']; ?>
+                                        @else
+                                                <?php $id = ''; ?>
+                                        @endif
                                         <div class="col-xs-12">
                                             <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             <a href="#" data-toggle="tooltip" data-placement="bottom"
-                                               title="{{$item->text}}">{{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź', 'required'])}}</a>
+                                               title="{{$item->text}}">{{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź', 'required', 'id' => $id])}}</a>
                                         </div>
                                     @elseif($item->type == 'radio')
                                         <div class="col-xs-12 input-body">
@@ -115,9 +121,11 @@
                                     @endif
                                 </div>
                             @endforeach
-                            {{Form::submit('Dalej', ['class' => "btn btn-default"])}}
-                            @if($survey['step']>1)
-                                <a class="btn" href="{{url('survey/previous' . '/' . $survey['id'] . '/' . $survey['step'])}}">Powrót</a>
+                            @if($survey['step']>1 && $survey['step']!=5)
+                                {{Form::submit('Dalej', ['class' => "btn btn-default shrinked-next"])}}
+                                <a class="btn shrinked-back" href="{{url('survey/previous' . '/' . $survey['id'] . '/' . $survey['step'])}}">Powrót</a>
+                            @else
+                                {{Form::submit('Dalej', ['class' => "btn btn-default"])}}
                             @endif
                             {!! Form::close() !!}
                         </div>

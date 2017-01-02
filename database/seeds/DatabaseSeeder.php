@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             1 => 'Część 1: Pytania ogólne identyfikujące wydawców:',
             2 => 'Część 2: Pytania identyfikujące ogólne preferencje wydawców:',
             3 => 'Część 3: Pytania dotyczące kampanii pożyczkowych na przykładzie VIVUS:',
-            4 => 'Część 3: Pytania dotyczące kampanii pożyczkowych na przykładzie VIVUS:'
+            4 => 'Część 3: Pytania dotyczące kampanii pożyczkowych na przykładzie VIVUS:',
+            5 => 'Część 4: Dane kontaktowe:'
         ])
         ]);
         Question::create(['survey_id' => 1, 'step' => 1, 'number' => 1, 'name' => 'pyt1', 'type' => 'radio', 'text' =>
@@ -220,16 +221,15 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         //page 5
-        /*
+
         Question::create(['survey_id' => 1, 'step' => 5, 'number' => 19, 'name' => 'pyt19', 'type' => 'text', 'text' =>
             'Podaj swoje imię', 'values' => [], 'rule' => 'required|min:1|max:50']);
 
         Question::create(['survey_id' => 1, 'step' => 5, 'number' => 20, 'name' => 'pyt20', 'type' => 'text', 'text' =>
             'Podaj swoje nazwisko', 'values' => [], 'rule' => 'required|min:1|max:50']);
 
-        Question::create(['survey_id' => 1, 'step' => 5, 'number' => 21, 'name' => 'pyt21', 'type' => 'text', 'text' =>
-            'Podaj swój adres E-mail', 'values' => [], 'rule' => 'required|min:1|max:50']);
-        */
+        Question::create(['survey_id' => 1, 'step' => 5, 'custom_id' => 'email', 'number' => 21, 'name' => 'pyt21', 'type' => 'text', 'text' =>
+            'Podaj swój adres E-mail', 'values' => [], 'rule' => 'required|email|min:1|max:50']);
 
         Model::reguard();
     }
