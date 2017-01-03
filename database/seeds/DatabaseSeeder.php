@@ -39,14 +39,14 @@ class DatabaseSeeder extends Seeder
                 3 => 'Powyżej 5'
             ]), 'rule' => 'required']);
         Question::create(['survey_id' => 1, 'step' => 1, 'number' => 3, 'name' => 'pyt3', 'type' => 'checkbox', 'text' =>
-            'Jakiej kategorii  blogi/strony/serwisy prowadzisz?',
+            'Jakiej kategorii działania w Internecie prowadzisz?',
             'values' => json_encode([
                 1 => 'blog',
                 2 => 'serwis informacyjny',
                 3 => 'lead generator',
                 4 => 'porównywarka',
                 5 => 'baza mailingowa',
-                6 => 'dostawca technoogii',
+                6 => 'dostawca technologii',
                 'other' => 'inne'
             ]), 'rule' => 'required']);
         Question::create(['survey_id' => 1, 'step' => 1, 'number' => 4, 'name' => 'pyt4', 'type' => 'radio', 'text' =>
@@ -64,12 +64,11 @@ class DatabaseSeeder extends Seeder
             'Z jakiej formy generowania przychodu z bloga/strony/serwisu korzystasz regularnie?', 'values' => json_encode([
             1 => 'sieci afiliacyjne',
             2 => 'programy partnerskie',
-            3 => 'współpraca z agencjami/markami',
+            3 => 'współpraca z agencjami/ sieciami reklamowymi',
             4 => 'reklamy sieci AdSense',
-            5 => 'reklamy w innych sieciach reklamowych',
-            6 => 'artykuły sponsorowane',
-            7 => 'reklamy',
-            8 => 'sprzedaż własnych produktów/usług',
+            5 => 'artykuły sponsorowane',
+            6 => 'współpraca bezpośrednia z firmami/ markami',
+            7 => 'sprzedaż własnych produktów/usług',
             'other' => 'inne'
         ]),
             'rule' => 'required']);
@@ -78,12 +77,11 @@ class DatabaseSeeder extends Seeder
             'Która z form zarobkowania na blogu/stronie/serwisie generuje najwyższe obroty?', 'values' => json_encode([
             1 => 'sieci afiliacyjne',
             2 => 'programy partnerskie',
-            3 => 'współpraca z agencjami/markami',
+            3 => 'współpraca z agencjami/ sieciami reklamowymi',
             4 => 'reklamy sieci AdSense',
-            5 => 'reklamy w innych sieciach reklamowych',
-            6 => 'artykuły sponsorowane',
-            7 => 'reklamy',
-            8 => 'sprzedaż własnych produktów/usług',
+            5 => 'artykuły sponsorowane',
+            6 => 'współpraca bezpośrednia z firmami/ markami',
+            7 => 'sprzedaż własnych produktów/usług',
             'other' => 'inne'
         ]),
             'rule' => 'required']);
@@ -110,6 +108,7 @@ class DatabaseSeeder extends Seeder
             5 => 'CPM – cost per mille ',
             6 => 'CPC + CPL',
             7 => 'CPC + CPM',
+            8 => 'CPL + CPS',
             'other' => 'inny'
         ]),
             'rule' => 'required']);
@@ -176,7 +175,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 14, 'name' => 'pyt14', 'type' => 'text', 'text' =>
-            'Czego Twoim zdaniem brakuje w obecnie funkcjonujących kampaniach firm VIVUSA - co byś zmienił/ła?',
+            'Czego Twoim zdaniem brakuje w obecnie funkcjonujących kampaniach firm VIVUS - co byś zmienił/ła?',
             'values' => [], 'rule' => 'required|min:1|max:50']);
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 15, 'name' => 'pyt15', 'type' => 'radio', 'text' =>
@@ -199,7 +198,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 17, 'name' => 'pyt17', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 17, 'name' => 'pyt17', 'type' => 'checkbox', 'text' =>
             'Co skłoniłoby Cię do promowania lub zwiększenia działań na rzecz kampanii VIVUS?', 'values' => json_encode([
             1 => 'terminowe wypłaty rozliczeń',
             2 => 'rozliczenia już po miesiącu od startu kampanii',
