@@ -15,6 +15,7 @@ class SimpleSurveyController extends Controller
 {
     public function getSurvey($id = 1) {
         $cookie = Cookie::get(config('app.cookie_prefix') . 'guest_id');
+        $maxStep = Question::where('survey_id', $id)->max('step');
         if (isset($cookie))
         {
             $cookie_val = $cookie;
@@ -23,7 +24,6 @@ class SimpleSurveyController extends Controller
             $lastSavedStep = SurveyResult::where('survey_id', $id)->where('cookie', $cookie_val)->max('survey_step');
             if(is_null($lastSavedStep))
                 $lastSavedStep = 1;
-            $maxStep = Question::where('survey_id', $id)->max('step');
             if($lastSavedStep >= $maxStep)
             {
                 return $this->getSurveyDone($id);
