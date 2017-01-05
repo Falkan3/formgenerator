@@ -9,73 +9,53 @@ use App\SurveyResult;
 use App\Page;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Cookie\CookieJar;
+use Illuminate\Support\Facades\Redirect;
 
 class SimpleSurveyController extends Controller
 {
-    public function checkIfDone($id)
-    {
+    public function getSurvey($id = 1) {
         $cookie = Cookie::get(config('app.cookie_prefix') . 'guest_id');
         if (isset($cookie))
+        {
             $cookie_val = $cookie;
-        else
-            $cookie_val = '';
+            $survey = Survey::findOrFail($id);
 
-        $result = SurveyResult::where('cookie', $cookie_val)->first();//where('ip', request()->ip())->first();
-        $lastStep = Question::where('survey_id', $id)->max('step');
-
-        if (isset($result)) {
-            $saved_step = SurveyResult::where('cookie', $cookie_val)->max('survey_step'); //where('ip', request()->ip())
-            if ($saved_step == $lastStep) {
-                return true;
+            $lastSavedStep = SurveyResult::where('survey_id', $id)->where('cookie', $cookie_val)->max('survey_step');
+            if(is_null($lastSavedStep))
+                $lastSavedStep = 1;
+            $maxStep = Question::where('survey_id', $id)->max('step');
+            if($lastSavedStep >= $maxStep)
+            {
+                return $this->getSurveyDone($id);
+            }
+            else
+            {
+                $data = $this->getSurveyStep($id, $lastSavedStep, $cookie_val);
             }
         }
-
-        return false;
-    }
-
-    public function getSurvey($id, $step = null, $cookie_val = null)
-    {
-        if (is_null($cookie_val)) {
-            $cookie = Cookie::get(config('app.cookie_prefix') . 'guest_id');
-            if (isset($cookie))
-                $cookie_val = $cookie;
-            else
-                $cookie_val = '';
+        else
+        {
+            $data = $this->getSurveyStep($id, 1);
         }
 
-        $result = SurveyResult::where('cookie', $cookie_val)->first();//where('ip', request()->ip())->first();
-        $lastStep = Question::where('survey_id', $id)->max('step');
-
-        if (isset($result)) {
-            $saved_step = SurveyResult::where('cookie', $cookie_val)->max('survey_step');
-
-            if (is_null($step) || $step > $lastStep)
-                $data = $this->getSurveyStep($id, $saved_step + 1);
-            else
-                $data = $this->getSurveyStep($id, $step);
-        } else
-            $data = $this->getSurveyStep($id, 1);
-
-        $data['last_step'] = $lastStep;
+        $data['id'] = $id;
+        $data['last_step'] = $maxStep;
 
         return $data;
     }
 
-    public function getSurveyStep($id, $step)
-    {
-        $questions = $this->fetchStepQuestions($id, $step);
-        if (empty($questions)) {
-            abort(404);
-        }
+    public function getSurveyStep($id, $step, $cookie_val = null) {
+        //return step, step title, questions
+        $questions = $this->getSurveyStepQuestions($id, $step);
+        $answers = $this->getAnswers($id, $step, $cookie_val);
 
         $step_title_raw = Survey::find($id);
         $step_title = json_decode($step_title_raw->step_titles, 1)[$step];
 
-        return ['id' => $id, 'survey_step_title' => $step_title, 'questions' => $questions, 'step' => $step];
+        return ['survey_step_title' => $step_title, 'questions' => $questions, 'step' => $step, 'answers' => $answers];
     }
 
-    protected function fetchStepQuestions($id, $step)
-    {
+    public function getSurveyStepQuestions($id, $step) {
         $questions = Question::where('survey_id', $id)->where('step', $step)->get();
         if (empty($questions)) {
             abort(404);
@@ -84,17 +64,75 @@ class SimpleSurveyController extends Controller
         return $questions;
     }
 
+    public function getAnswers($id, $step, $cookie_val) {
+        $answer = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', $cookie_val)->first();
+        if(isset($answer))
+            $return = $answer->answers;
+        else
+            $return = null;
+
+        return $return;
+    }
+
+    public function generateSurvey($id, $step) {
+        if($this->checkIfDone($id) == true)
+        {
+            return $this->getSurveyDone($id);
+        }
+
+        $cookie = Cookie::get(config('app.cookie_prefix') . 'guest_id');
+        if (isset($cookie))
+        {
+            $cookie_val = $cookie;
+            /*
+            $savedStep = SurveyResult::where('survey_id', $id)->where('cookie', $cookie_val)->where('survey_step', $step)->first();
+            if(is_null($savedStep))
+                $savedStep = 1;
+            */
+            if($step==4)
+            {
+                $result = SurveyResult::where('survey_id', $id)->where('survey_step', 4)->where('cookie', $cookie_val)->first();
+                if($result->answers=='[]')
+                    return redirect('survey/gen/'.$id.'/3');
+            }
+            $maxStep = Question::where('survey_id', $id)->max('step');
+            if($step > $maxStep)
+            {
+                return redirect('/')->withCookie($cookie);
+            }
+            else
+            {
+                $data = $this->getSurveyStep($id, $step, $cookie_val);
+            }
+        }
+        else
+        {
+            return redirect('/');
+        }
+
+        $data['id'] = $id;
+        $data['last_step'] = $maxStep;
+
+        //-------------------------------------------------------------------------------------
+        $page = Page::findOrFail(1);
+
+        if(isset($data['answers']))
+            $answers = json_decode($data['answers'], 1);
+        else
+            $answers = null;
+
+        return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $data, 'answers' => $answers]);
+    }
+
     public function postSurveyStep($id, $step, Request $request, CookieJar $cookieJar)
     {
-        $questions = $this->fetchStepQuestions($id, $step);
+        $questions = $this->getSurveyStepQuestions($id, $step);
         $lastStep = Question::where('survey_id', $id)->max('step');
 
         $rules = [];
         foreach ($questions as $question) {
             $rules[$question->name] = $question->rule;
         }
-
-        //$this->validate($request, $rules);
 
         $cookie = Cookie::get(config('app.cookie_prefix') . 'guest_id');
         if (isset($cookie))
@@ -103,14 +141,9 @@ class SimpleSurveyController extends Controller
             $cookie_val = '';
 
         //
-        try
-        {
-            $this->validate($request, $rules);
-        }
-        catch(\Exception $ex)
-        {
-            return redirect('/')->withCookie($cookie);
-        }
+
+        $this->validate($request, $rules);
+
         //
 
         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', $cookie_val)->first(); //->where('ip', request()->ip())->get();
@@ -157,29 +190,22 @@ class SimpleSurveyController extends Controller
                     $result->cookie = $cookie_val;
                 $result->save();
 
-                //return redirect('survey/done/'.$id)->withCookie($cookie);
-                return app('App\Http\Controllers\MainController')->index($this->getSurvey($id, $step + 2, $cookie_val))->withCookie($cookie);
+                return redirect('survey/gen/'.$id.'/' . ($step+2))->withCookie($cookie);
             }
         }
 
         //$page = Page::findOrFail(1);
         if ($step + 1 > $lastStep) {
-            return redirect('survey/done/' . $id)->withCookie($cookie);
+            return $this->getSurveyDone($id);
         } else {
-            //return redirect('/')->withCookie($cookie);
-            return app('App\Http\Controllers\MainController')->index($this->getSurvey($id, $step + 1, $cookie_val))->withCookie($cookie);
-            //return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $this->getSurvey($id, $step+1)]);
+            return redirect('survey/gen/' . $id . '/' . ($step+1))->withCookie($cookie);
         }
     }
 
-    public function getSurveyDone($id)
+    public function getSurveyDone($id = 1)
     {
-        if ($this->checkIfDone($id)) {
-            $page = Page::findOrFail(1);
-            return view('pages.alreadydone', ['layout' => $page->getLayout->location]);
-        } else {
-            return redirect('/');
-        }
+        $page = Page::findOrFail(1);
+        return view('pages.alreadydone', ['layout' => $page->getLayout->location]);
     }
 
     public function previousStep($id, $step)
@@ -198,13 +224,13 @@ class SimpleSurveyController extends Controller
             {
                 return app('App\Http\Controllers\MainController')->index($this->getSurvey($id, $step, $cookie_val))->withCookie($cookie);
             }
-            $saved_step = SurveyResult::where('cookie', $cookie_val)->max('survey_step');
+            $saved_step = SurveyResult::where('survey_id', $id)->where('cookie', $cookie_val)->max('survey_step');
             if ($saved_step > 0 && $step - 1 > 0) {
                 $data = $this->getSurveyStep($id, $step - 1);
                 $answers = SurveyResult::where('cookie', $cookie_val)->where('survey_step', $step - 1)->first()->answers;
             }
         } else {
-            $data = $this->getSurveyStep($id, 1);
+            return redirect('/');
         }
 
         $lastStep = Question::where('survey_id', $id)->max('step');
@@ -214,5 +240,20 @@ class SimpleSurveyController extends Controller
 
         //return view('pages.main', ['layout' => $page->getLayout->location, 'survey' => $data]);
         return app('App\Http\Controllers\MainController')->index($data, $answers);
+    }
+
+    public function checkIfDone($id) {
+        $cookie = Cookie::get(config('app.cookie_prefix') . 'guest_id');
+        if (isset($cookie)) {
+            $cookie_val = $cookie;
+        }
+        $lastSavedStep = SurveyResult::where('survey_id', $id)->where('cookie', $cookie_val)->max('survey_step');
+        $maxStep = Question::where('survey_id', $id)->max('step');
+        if($lastSavedStep >= $maxStep)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 }

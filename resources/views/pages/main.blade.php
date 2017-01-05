@@ -17,7 +17,7 @@
         </div>
     @endif
     <div class="content">
-        <div class="container narrow">
+        <div class="container narrow backgrounded">
             <div class="row text-center">
                 <h3 class="no-margin">FORMULARZ <span class="highlight">DUŻY TEKST</span></h3>
                 <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">WIELKI TEKST</span></h3>
@@ -34,10 +34,10 @@
 
                             @foreach($survey['questions'] as $item)
                                 <div class="container field-group">
-                                    <div class="col-xs-10 col-sm-11 header-ext"><p>{{$item->text}}</p></div>
+                                    <div class="col-xs-10 col-sm-10 header-ext"><p>{{$item->text}}</p></div>
 
                                     @if($item->type == 'text')
-                                        @if(isset($answers))
+                                        @if(isset($answers) && isset($answers[$item->name]))
                                             <?php $answer = $answers[$item->name]; ?>
                                         @else
                                             <?php $answer = ''; ?>
@@ -56,7 +56,7 @@
                                         <div class="col-xs-12 input-body">
                                             <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values) as $key=>$val)
-                                                @if(isset($answers) && $answers[$item->name] == $key)
+                                                @if(isset($answers) && isset($answers[$item->name]) && $answers[$item->name] == $key)
                                                     <?php $answer = $answers[$item->name]; ?>
                                                 @else
                                                     <?php $answer = 0; ?>
@@ -107,8 +107,8 @@
                                         <div class="col-xs-12 input-body">
                                             <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
                                             @foreach(json_decode($item->values) as $key=>$val)
-                                                @if(isset($answers) && isset($answers[$item->name.'['.$key.']']))
-                                                    <?php $answer = $answers[$item->name.'['.$key.']']; ?>
+                                                @if(isset($answers) && isset($answers[$item->name][$key]))
+                                                    <?php $answer = $answers[$item->name][$key]; ?>
                                                 @else
                                                     <?php $answer = null; ?>
                                                 @endif
@@ -123,7 +123,7 @@
                             @endforeach
                             @if($survey['step']>1 && $survey['step']!=5)
                                 {{Form::submit('Dalej', ['class' => "btn btn-default shrinked-next"])}}
-                                <a class="btn shrinked-back" href="{{url('survey/previous' . '/' . $survey['id'] . '/' . $survey['step'])}}">Powrót</a>
+                                <a class="btn shrinked-back" href="{{url('survey/gen' . '/' . $survey['id'] . '/' . ($survey['step']-1))}}">Powrót</a>
                             @else
                                 {{Form::submit('Dalej', ['class' => "btn btn-default"])}}
                             @endif
