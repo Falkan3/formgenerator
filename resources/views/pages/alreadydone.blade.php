@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="content">
-        <div class="container">
+        <div class="container backgrounded">
             <div class="row text-center">
                 <h3 class="no-margin">FORMULARZ <span class="highlight">DUŻY TEKST</span></h3>
                 <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">WIELKI TEKST</span></h3>

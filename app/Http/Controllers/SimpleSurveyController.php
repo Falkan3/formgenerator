@@ -9,7 +9,6 @@ use App\SurveyResult;
 use App\Page;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Cookie\CookieJar;
-use Illuminate\Support\Facades\Redirect;
 
 class SimpleSurveyController extends Controller
 {
@@ -30,7 +29,7 @@ class SimpleSurveyController extends Controller
             }
             else
             {
-                $data = $this->getSurveyStep($id, $lastSavedStep, $cookie_val);
+                $data = $this->getSurveyStep($id, $lastSavedStep+1, $cookie_val);
             }
         }
         else
