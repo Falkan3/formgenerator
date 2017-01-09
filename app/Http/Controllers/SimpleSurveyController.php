@@ -91,7 +91,7 @@ class SimpleSurveyController extends Controller
             if($step==4)
             {
                 $result = SurveyResult::where('survey_id', $id)->where('survey_step', 4)->where('cookie', $cookie_val)->first();
-                if($result->answers=='[]')
+                if(isset($result) && $result->answers=='[]')
                     return redirect('survey/gen/'.$id.'/3');
             }
             $maxStep = Question::where('survey_id', $id)->max('step');
