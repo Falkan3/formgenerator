@@ -22,7 +22,7 @@ class SimpleSurveyController extends Controller
 
             $lastSavedStep = SurveyResult::where('survey_id', $id)->where('cookie', $cookie_val)->max('survey_step');
             if(is_null($lastSavedStep))
-                $lastSavedStep = 1;
+                $lastSavedStep = 0;
             if($lastSavedStep >= $maxStep)
             {
                 return $this->getSurveyDone($id);
@@ -95,13 +95,18 @@ class SimpleSurveyController extends Controller
                     return redirect('survey/gen/'.$id.'/3');
             }
             $maxStep = Question::where('survey_id', $id)->max('step');
+            $lastSavedStep = SurveyResult::where('survey_id', $id)->where('cookie', $cookie_val)->max('survey_step');
             if($step > $maxStep)
             {
                 return redirect('/')->withCookie($cookie);
             }
-            else
+            else if($step <= $lastSavedStep+1)
             {
                 $data = $this->getSurveyStep($id, $step, $cookie_val);
+            }
+            else
+            {
+                return redirect('/')->withCookie($cookie);
             }
         }
         else
