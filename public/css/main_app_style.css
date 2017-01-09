@@ -53,6 +53,12 @@ header nav #logo {
     margin-bottom: 30px;
 }
 
+img.vivus-logo {
+    max-width: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 span.highlight {
     font-size: 28px;
     font-weight: bold;

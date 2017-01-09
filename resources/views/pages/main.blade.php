@@ -19,8 +19,9 @@
     <div class="content">
         <div class="container narrow backgrounded">
             <div class="row text-center">
-                <h3 class="no-margin">FORMULARZ <span class="highlight">DUŻY TEKST</span></h3>
-                <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">WIELKI TEKST</span></h3>
+                <h3 class="no-margin">Ankieta <span class="highlight">dla wydawców</span></h3>
+                <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">organizowana we współpracy z VIVUS</span></h3>
+                <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <section>
                         <h1><span class="text-bold text-center">Wypełnij formularz</span></h1>
