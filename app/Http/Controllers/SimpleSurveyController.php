@@ -180,11 +180,13 @@ class SimpleSurveyController extends Controller
                 if (count($old_result) > 0)
                     $result = $old_result;
                 else
+                {
                     $result = new SurveyResult;
+                    $result->answers = json_encode([]);
+                    $result->survey_id = $id;
+                    $result->survey_step = 4;
+                }
 
-                $result->survey_id = $id;
-                $result->survey_step = 4;
-                $result->answers = json_encode([]);
                 $result->ip = request()->ip();
                 if (strlen($cookie) == 0) {
                     $raw_cookie = uniqid();
