@@ -1,38 +1,144 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var text = $("form#contact-form input[type='text']");
     var email = $("form#contact-form input[type='text']#email");
+    var checkboxesAndRadios = $("form#contact-form input[type='checkbox'], form#contact-form input[type='radio']");
+    var checkboxes = $("form#contact-form input[type='checkbox']");
+    //var fieldGroups = $("form#contact-form .field-group .input-body");
 
-    /*
-    text.on("input", function() {
-        if(!textIsValid($(this).val()))
-        {
-            //$(this).removeClass("correct_input");
-            $(this).addClass("wrong_input");
-        }
-        else
-        {
-            //$(this).addClass("correct_input");
-            $(this).removeClass("wrong_input");
-        }
-        if($(this).val().length==0) {
-            $(this).removeClass("wrong_input");
-            //$(this).removeClass("correct_input");
+    var other = $("form#contact-form input[type='text'][name^='other']");
+    var submit = $("form#contact-form input[type='submit']");
+
+    other.each(function (e) {
+        if ($(this).parent().find("input[type='checkbox'], input[type='radio']").prop('checked') != true)
+            $(this).hide();
+    });
+
+    checkboxesAndRadios.change(function (e) {
+        other.each(function (e) {
+            if ($(this).parent().find("input[type='checkbox'], input[type='radio']").prop('checked') != true)
+                $(this).hide();
+            else
+                $(this).show();
+        });
+        /*
+         var ele = $(this).parent().find("input[type='text'][name^='other']");
+         console.log((ele.parent().find("input[type='checkbox'], input[type='radio']").prop("checked")))
+         if (ele.parent().find("input[type='checkbox'], input[type='radio']").prop('checked') != true)
+         ele.hide();
+         else
+         ele.show();
+         */
+    });
+
+    other.on("input", function() {
+        $(this).removeClass("wrong_input");
+    });
+
+    checkboxes.change(function(e) {
+        var max = $(this).attr('max_ticks');
+        if($(this).parent().parent().find("input[type='checkbox']:checked").length > max) {
+            e.preventDefault();
+            $(this).prop("checked", false);
         }
     });
-    */
 
-    email.on("input", function() {
-        if(!emailIsValid($(this).val()))
-        {
+    checkboxesAndRadios.change(function(){
+        $(this).parent().parent().removeClass("wrong_input");
+    });
+
+    submit.click(function (e) {
+        var responses = [];
+        responses[0] = []; //container for wrong inputs in $
+        responses[1] = validateOther();
+        responses[2] = validateRadiosAndCheckboxes();
+        var wrong = false;
+        for(var i=1; i<=2; i++) {
+            if(responses[i][0]==true)
+            {
+                wrong = true;
+                $.merge(responses[0], responses[i][1]);
+            }
+        }
+        if (wrong == true) {
+            e.preventDefault();
+            $(responses[0]).each(function () {
+                $(this).addClass('wrong_input');
+            });
+            $('html, body').stop().animate({
+                scrollTop: responses[0][0].offset().top - 30
+            }, 1500, 'easeInOutExpo');
+        }
+    });
+
+    function validateOther() {
+        var wrongInputs = [];
+        var wrong = false;
+        other.each(function (e) {
+            var box = $(this).parent().find("input[type='checkbox'], input[type='radio']");
+            if (box.prop('checked') == true) {
+                if ($(this).val().length == 0) {
+                    wrongInputs.push($(this));
+                    wrong = true;
+                }
+            }
+        });
+        return [wrong, wrongInputs];
+    }
+
+    function validateRadiosAndCheckboxes() {
+        var wrongInputs = [];
+        var wrong = false;
+        var fieldGroups = $("form#contact-form .field-group");
+        var fieldGroupInputs = $("form#contact-form .field-group input[type='checkbox'], form#contact-form .field-group input[type='radio']")
+
+        fieldGroups.each(function() {
+            var correctField = false;
+            var fields = $(this).find("input[type='checkbox'], input[type='radio']");
+            if(fields.length > 0) {
+                fields.each(function () {
+                    if ($(this).prop("checked") == true)
+                        correctField = true;
+                });
+                if (correctField == false) {
+                    wrongInputs.push($(this).find(".input-body:first"));
+                    wrong = true;
+                }
+            }
+        });
+
+
+        return [wrong, wrongInputs];
+    }
+
+    /*
+     text.on("input", function() {
+     if(!textIsValid($(this).val()))
+     {
+     //$(this).removeClass("correct_input");
+     $(this).addClass("wrong_input");
+     }
+     else
+     {
+     //$(this).addClass("correct_input");
+     $(this).removeClass("wrong_input");
+     }
+     if($(this).val().length==0) {
+     $(this).removeClass("wrong_input");
+     //$(this).removeClass("correct_input");
+     }
+     });
+     */
+
+    email.on("input", function () {
+        if (!emailIsValid($(this).val())) {
             //$(this).removeClass("correct_input");
             $(this).addClass("wrong_input");
         }
-        else
-        {
+        else {
             //$(this).addClass("correct_input");
             $(this).removeClass("wrong_input");
         }
-        if($(this).val().length==0) {
+        if ($(this).val().length == 0) {
             $(this).removeClass("wrong_input");
             //$(this).removeClass("correct_input");
         }
@@ -40,7 +146,7 @@ $(document).ready(function() {
 });
 
 function textIsValid(input) {
-    var regex =  /^[a-zA-Z0-9\s\,\.]*$/;
+    var regex = /^[a-zA-Z0-9\s\,\.]*$/;
     return regex.test(input);
 }
 

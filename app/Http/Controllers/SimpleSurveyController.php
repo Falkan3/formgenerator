@@ -88,9 +88,9 @@ class SimpleSurveyController extends Controller
             if(is_null($savedStep))
                 $savedStep = 1;
             */
-            if($step==4)
+            if($step==3)
             {
-                $result = SurveyResult::where('survey_id', $id)->where('survey_step', 3)->where('cookie', $cookie_val)->first();
+                $result = SurveyResult::where('survey_id', $id)->where('survey_step', 2)->where('cookie', $cookie_val)->first();
                 //if(isset($result) && $result->answers=='[]')
                 if(isset($result) && json_decode($result->answers, 1)['pyt11']=='other')
                     return redirect('survey/gen/'.$id.'/'.($step+1));
@@ -174,9 +174,9 @@ class SimpleSurveyController extends Controller
         $cookieJar->queue(cookie(config('app.cookie_prefix') . 'guest_id', $cookie_val, 1440));
         $result->save();
 
-        if ($id == 1 && $step == 3) {
+        if ($id == 1 && $step == 2) {
             if ($request->pyt11 == 'other') {
-                $old_result = SurveyResult::where('survey_id', 1)->where('survey_step', 4)->where('cookie', $cookie_val)->first();
+                $old_result = SurveyResult::where('survey_id', 1)->where('survey_step', 3)->where('cookie', $cookie_val)->first();
                 if (count($old_result) > 0)
                     $result = $old_result;
                 else
@@ -184,7 +184,7 @@ class SimpleSurveyController extends Controller
                     $result = new SurveyResult;
                     $result->answers = json_encode([]);
                     $result->survey_id = $id;
-                    $result->survey_step = 4;
+                    $result->survey_step = 3;
                 }
 
                 $result->ip = request()->ip();

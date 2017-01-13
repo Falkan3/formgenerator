@@ -9,6 +9,7 @@
         {{print_r($item['attributes'])}}
     @endforeach
  */ ?>
+    <?php $labelNumeration = 0; ?>
     @if ($errors->any())
         <div class="container">
             <div class="alert alert-danger">
@@ -19,16 +20,21 @@
     <div class="content">
         <div class="container narrow backgrounded">
             <div class="row text-center">
-                <h3 class="no-margin">Ankieta <span class="highlight">dla wydawców</span></h3>
-                <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">organizowana we współpracy z</span></h3>
+                @if(isset($survey['step']) && $survey['step']==1)
+                    <h3 class="no-margin">Ankieta <span class="highlight">dla wydawców</span></h3>
+                    <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">organizowana we współpracy z</span>
+                    </h3>
+                @endif
                 <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <section>
                         <h1><span class="text-bold text-center">Wypełnij formularz</span></h1>
                         @if(isset($survey['survey_step_title']))
-                        <h2><span class="text-center">{{$survey['survey_step_title']}}</span></h2>
+                            <h2><span class="text-center">{{$survey['survey_step_title']}}</span></h2>
                         @endif
-                        <h3><span class="highlight big colored">Strona {{$survey['step'] . '/' . $survey['last_step']}}</span></h3>
+                        <h3>
+                            <span class="highlight big colored">Strona {{$survey['step'] . '/' . $survey['last_step']}}</span>
+                        </h3>
 
                         <div class="contact-form padding-medium">
                             {!! Form::open(['url' => ['survey/'.$survey['id'].'/step/'.$survey['step']], 'method' => 'post', 'id' => 'contact-form']) !!}
@@ -46,7 +52,7 @@
                                         @if(isset($item['custom_id']))
                                             <?php $id = $item['custom_id']; ?>
                                         @else
-                                                <?php $id = ''; ?>
+                                            <?php $id = ''; ?>
                                         @endif
                                         <div class="col-xs-12">
                                             <div class="col-xs-2 col-sm-1 input-header"><p>{{$item->number}}</p></div>
@@ -63,11 +69,11 @@
                                                     <?php $answer = 0; ?>
                                                 @endif
                                                 <div class="col-xs-12">
-                                                    {{Form::radio($item->name, $key, $answer, ['class' => "contact-form-field"])}}
-                                                    {{Form::label($item->name, $val)}}
+                                                    {{Form::radio($item->name, $key, $answer, ['id' => $labelNumeration, 'class' => "contact-form-field"])}}
+                                                    {{Form::label($labelNumeration++, $val)}}
                                                     @if($key=="other")
                                                         @if(isset($answers[$item->name]) && $answers[$item->name] == 'other' && isset($answers['other_'.$item->name]))
-                                                            <?php $answer = $answers['other_'.$item->name]; ?>
+                                                            <?php $answer = $answers['other_' . $item->name]; ?>
                                                         @else
                                                             <?php $answer = ''; ?>
                                                         @endif
@@ -86,11 +92,11 @@
                                                     <?php $answer = 0; ?>
                                                 @endif
                                                 <div class="col-xs-12">
-                                                    {{Form::checkbox($item->name.'['.$key.']', 1, $answer, ['class' => "contact-form-field"])}}
-                                                    {{Form::label($item->name, $val)}}
+                                                    {{Form::checkbox($item->name.'['.$key.']', 1, $answer, ['id' => $item->name.'['.$key.']', 'class' => "contact-form-field", 'max_ticks' => $item->max_ticks])}}
+                                                    {{Form::label($item->name.'['.$key.']', $val)}}
                                                     @if($key=="other")
                                                         @if(isset($answers[$item->name]['other']) && $answers[$item->name]['other'] == '1' && isset($answers['other_'.$item->name]))
-                                                            <?php $answer = $answers['other_'.$item->name]; ?>
+                                                            <?php $answer = $answers['other_' . $item->name]; ?>
                                                         @else
                                                             <?php $answer = ''; ?>
                                                         @endif
@@ -122,9 +128,10 @@
                                     @endif
                                 </div>
                             @endforeach
-                            @if($survey['step']>1 && $survey['step']!=5)
+                            @if($survey['step']>1 && $survey['step']!=$survey['last_step'])
                                 {{Form::submit('Dalej', ['class' => "btn btn-default shrinked-next"])}}
-                                <a class="btn shrinked-back" href="{{url('survey/gen' . '/' . $survey['id'] . '/' . ($survey['step']-1))}}">Powrót</a>
+                                <a class="btn shrinked-back"
+                                   href="{{url('survey/gen' . '/' . $survey['id'] . '/' . ($survey['step']-1))}}">Powrót</a>
                             @else
                                 {{Form::submit('Dalej', ['class' => "btn btn-default"])}}
                             @endif

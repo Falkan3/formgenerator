@@ -217,12 +217,16 @@ body {
 
 .contact-form input[type="text"].contact-form-field.wrong_input, .contact-form input[type="textarea"].contact-form-field.wrong_input {
     border: 1px solid #880000;
-    background-color: #ffaca5;
+    /*background-color: #ffaca5;*/
 }
 
 .contact-form input[type="text"].contact-form-field.wrong_input:focus, .contact-form input[type="textarea"].contact-form-field.wrong_input:focus {
     border: 1px solid #cc1304;
     outline: none;
+}
+
+.contact-form div.wrong_input {
+    border: 2px solid #cc1304;
 }
 
 .contact-form input[type="text"].contact-form-field.correct_input, .contact-form input[type="textarea"].contact-form-field.wrong_input:focus {

@@ -24,6 +24,7 @@ class CreateQuestionsTable extends Migration
             $table->string('type');
             $table->string('text');
             $table->text('values');
+            $table->integer('max_ticks')->unsigned()->default(3);
             $table->string('rule')->default('');
 
             $table->timestamps();
