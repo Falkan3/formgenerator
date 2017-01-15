@@ -7,13 +7,11 @@
     <div class="content">
         <div class="container backgrounded">
             <div class="row text-center">
-                <h3 class="no-margin">Ankieta <span class="highlight">dla wydawców</span></h3>
-                <h3 class="no-margin margin-bottom-medium"><span class="highlight big colored">organizowana we współpracy z</span></h3>
-                <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <section>
-                        <h1><span class="text-bold text-center">Dziękujemy</span></h1>
-                        <h2><span class="text-center">Dziękujemy za wypełnienie formularza.</span></h2>
+                        <h1><span class="text-bold text-center highlight big colored">Dziękujemy</span></h1>
+                        <h2><span class="text-center">Dziękujemy za wypełnienie ankiety. Niebawem na podany adres mailowy wyślemy do Ciebie raport.</span></h2>
+                        <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
                     </section>
                 </div>
             </div>

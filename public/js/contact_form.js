@@ -30,19 +30,19 @@ $(document).ready(function () {
          */
     });
 
-    other.on("input", function() {
+    other.on("input", function () {
         $(this).removeClass("wrong_input");
     });
 
-    checkboxes.change(function(e) {
+    checkboxes.change(function (e) {
         var max = $(this).attr('max_ticks');
-        if($(this).parent().parent().find("input[type='checkbox']:checked").length > max) {
+        if ($(this).parent().parent().find("input[type='checkbox']:checked").length > max) {
             e.preventDefault();
             $(this).prop("checked", false);
         }
     });
 
-    checkboxesAndRadios.change(function(){
+    checkboxesAndRadios.change(function () {
         $(this).parent().parent().removeClass("wrong_input");
     });
 
@@ -52,9 +52,8 @@ $(document).ready(function () {
         responses[1] = validateOther();
         responses[2] = validateRadiosAndCheckboxes();
         var wrong = false;
-        for(var i=1; i<=2; i++) {
-            if(responses[i][0]==true)
-            {
+        for (var i = 1; i <= 2; i++) {
+            if (responses[i][0] == true) {
                 wrong = true;
                 $.merge(responses[0], responses[i][1]);
             }
@@ -91,13 +90,21 @@ $(document).ready(function () {
         var fieldGroups = $("form#contact-form .field-group");
         var fieldGroupInputs = $("form#contact-form .field-group input[type='checkbox'], form#contact-form .field-group input[type='radio']")
 
-        fieldGroups.each(function() {
+        fieldGroups.each(function () {
             var correctField = false;
             var fields = $(this).find("input[type='checkbox'], input[type='radio']");
-            if(fields.length > 0) {
+            if (fields.length > 0) {
                 fields.each(function () {
-                    if ($(this).prop("checked") == true)
-                        correctField = true;
+                    var min = $(this).attr('min_ticks');
+                    if (min!=null) {
+                        if ($(this).parent().parent().find("input[type='checkbox']:checked").length >= min) {
+                            correctField = true;
+                        }
+                    }
+                    else {
+                        if ($(this).prop("checked") == true)
+                            correctField = true;
+                    }
                 });
                 if (correctField == false) {
                     wrongInputs.push($(this).find(".input-body:first"));

@@ -140,7 +140,7 @@ class DatabaseSeeder extends Seeder
 
         //page 3
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 12, 'name' => 'pyt12', 'type' => 'checkbox', 'max_ticks' => 5, 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 12, 'name' => 'pyt12', 'type' => 'checkbox', 'min_ticks' => 5, 'max_ticks' => 5, 'text' =>
             'Podaj 5 najchętniej wybieranych przez Ciebie reklamodawców z zakresu pożyczek', 'values' => json_encode([
                 1 => 'Ferratum',
                 2 => 'Filarum',

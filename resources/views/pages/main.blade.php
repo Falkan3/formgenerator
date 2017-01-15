@@ -92,7 +92,7 @@
                                                     <?php $answer = 0; ?>
                                                 @endif
                                                 <div class="col-xs-12">
-                                                    {{Form::checkbox($item->name.'['.$key.']', 1, $answer, ['id' => $item->name.'['.$key.']', 'class' => "contact-form-field", 'max_ticks' => $item->max_ticks])}}
+                                                    {{Form::checkbox($item->name.'['.$key.']', 1, $answer, ['id' => $item->name.'['.$key.']', 'class' => "contact-form-field", 'min_ticks' => $item->min_ticks, 'max_ticks' => $item->max_ticks])}}
                                                     {{Form::label($item->name.'['.$key.']', $val)}}
                                                     @if($key=="other")
                                                         @if(isset($answers[$item->name]['other']) && $answers[$item->name]['other'] == '1' && isset($answers['other_'.$item->name]))
