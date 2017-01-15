@@ -47,12 +47,18 @@ $(document).ready(function () {
     });
 
     submit.click(function (e) {
+        var max_validate = 2;
         var responses = [];
         responses[0] = []; //container for wrong inputs in $
         responses[1] = validateOther();
         responses[2] = validateRadiosAndCheckboxes();
+        if(email.length > 0)
+        {
+            responses[3] = validateEmail();
+            max_validate = 3;
+        }
         var wrong = false;
-        for (var i = 1; i <= 2; i++) {
+        for (var i = 1; i <= max_validate; i++) {
             if (responses[i][0] == true) {
                 wrong = true;
                 $.merge(responses[0], responses[i][1]);
@@ -115,6 +121,17 @@ $(document).ready(function () {
 
 
         return [wrong, wrongInputs];
+    }
+
+    function validateEmail() {
+        var wrong = false;
+        var wrong_inputs = [];
+        wrong = !emailIsValid(email.val());
+        if(wrong == true) {
+            wrong_inputs.push($(email));
+        }
+
+        return [wrong, wrong_inputs];
     }
 
     /*
