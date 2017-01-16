@@ -89,7 +89,7 @@ body {
     margin: 0;
     padding: 0;
 
-    background: url(http://monetkowo.herokuapp.com/public/images/demo/backgrounds/slider2.jpg);
+    background: url(../images/pa/background_img.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
