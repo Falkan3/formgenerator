@@ -88,11 +88,12 @@ body {
     font-size: 14px;
     margin: 0;
     padding: 0;
-
+    /*
     background: url(../images/pa/background_img.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    */
 }
 
 .content {
@@ -101,7 +102,10 @@ body {
 
 .backgrounded {
     background-color: #fff;
+    background-color: rgba(231, 239, 239, 0.8);
+    /*
     background-color: rgba(255,255,255,0.8);
+    */
     padding: 50px 5%;
 }
 

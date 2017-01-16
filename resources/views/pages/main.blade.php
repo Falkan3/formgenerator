@@ -26,6 +26,12 @@
                     </h3>
                 @endif
                 <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
+
+                @if(isset($survey['step']) && $survey['step']==1)
+                    <h3 class="no-margin margin-bottom-medium">Dziękujemy za chęć udziału w ankiecie. Nim przejdziemy do
+                        pierwszych pytań,
+                        prosimy o podanie adresu mailowego, na który prześlemy Raport</h3>
+                @endif
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <section>
                         <h1><span class="text-bold text-center">Wypełnij formularz</span></h1>
@@ -128,7 +134,7 @@
                                     @endif
                                 </div>
                             @endforeach
-                            @if($survey['step']>1 && $survey['step']!=$survey['last_step'])
+                            @if($survey['step']>1)
                                 {{Form::submit('Dalej', ['class' => "btn btn-default shrinked-next"])}}
                                 <a class="btn shrinked-back"
                                    href="{{url('survey/gen' . '/' . $survey['id'] . '/' . ($survey['step']-1))}}">Powrót</a>
