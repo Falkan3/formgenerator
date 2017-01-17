@@ -20,16 +20,21 @@
     <div class="content">
         <div class="container narrow backgrounded">
             <div class="row text-center">
-                @if(isset($survey['step']) && $survey['step']==1)
-                    <h3 class="no-margin"><span class="highlight big colored">Ankieta dla wydawców</span></h3>
-                    <h3 class="no-margin margin-bottom-medium"><span
-                                class="highlight">organizowana we współpracy z</span>
-                    </h3>
+                @if(isset($survey['step']))
+                    @if($survey['step']==1)
+                        <h3 class="no-margin"><span class="highlight big colored">Ankieta dla wydawców</span></h3>
+                        <h3 class="no-margin margin-bottom-medium"><span
+                                    class="highlight">organizowana we współpracy z</span>
+                        </h3>
+                        <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
+                    @elseif($survey['step']>1)
+                        <img src="{{asset('images/pa/vivus.png')}}" class="cornered vivus-logo" alt="logo_vivus"/>
+                    @endif
                 @endif
-                <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
 
                 @if(isset($survey['step']) && $survey['step']==1)
-                    <h3 class="no-margin margin-bottom-medium">Dziękujemy za chęć udziału w ankiecie. Nim przejdziemy do
+                    <h3 class="no-margin margin-bottom-medium">Dziękujemy za chęć udziału w ankiecie. Nim
+                        przejdziemy do
                         pierwszych pytań,
                         prosimy o podanie adresu mailowego, na który prześlemy<span
                                 class="text-block highlight colored margin-small">ZUPEŁNIE ZA DARMO</span><span
@@ -48,7 +53,7 @@
                             @foreach($survey['questions'] as $item)
                                 <div class="container field-group">
                                     <div class="col-xs-11 col-sm-11 header-ext"><p><span
-                                                    class="text-bold">{{$item->text}}</span></p></div>
+                                                    class="text-bold">{!! $item->text !!}</span></p></div>
 
                                     @if($item->type == 'text')
                                         @if(isset($answers) && isset($answers[$item->name]))

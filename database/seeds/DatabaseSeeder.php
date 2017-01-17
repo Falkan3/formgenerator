@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
                 3 => 'Powyżej 5'
             ]), 'rule' => 'required']);
         Question::create(['survey_id' => 1, 'step' => 2, 'number' => 3, 'name' => 'pyt3', 'type' => 'checkbox', 'text' =>
-            'Jakiej kategorii działania w Internecie prowadzisz? (Zaznacz maksymalnie 3)',
+            'Jakiej kategorii działania w Internecie prowadzisz? <span class="text-block">(Zaznacz maksymalnie 3)</span>',
             'values' => json_encode([
                 1 => 'blog',
                 2 => 'serwis informacyjny',
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         //Page 3
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 5, 'name' => 'pyt5', 'type' => 'checkbox', 'text' =>
-            'Z jakiej formy generowania przychodu z bloga/strony/serwisu korzystasz regularnie? (Zaznacz 3 najważniejsze)', 'values' => json_encode([
+            'Z jakiej formy generowania przychodu z bloga/strony/serwisu korzystasz regularnie? <span class="text-block">(Zaznacz 3 najważniejsze)</span>', 'values' => json_encode([
             1 => 'sieci afiliacyjne',
             2 => 'programy partnerskie',
             3 => 'współpraca z agencjami/ sieciami reklamowymi',
@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'text' =>
-            'Jakiego rodzaju kampanie wybierasz najczęściej? (Zaznacz maksymalnie 3)', 'values' => json_encode([
+            'Jakiego rodzaju kampanie wybierasz najczęściej? <span class="text-block">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
             1 => 'produkty bankowe – kredyty gotówkowe',
             2 => 'produkty bankowe – inne',
             3 => 'produkty pozabankowe - pożyczki',
@@ -152,7 +152,7 @@ class DatabaseSeeder extends Seeder
         //page 3
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 12, 'name' => 'pyt12', 'type' => 'checkbox', 'min_ticks' => 5, 'max_ticks' => 5, 'text' =>
-            'Podaj 5 najchętniej wybieranych przez Ciebie reklamodawców z zakresu pożyczek', 'values' => json_encode([
+            'Podaj 5 najchętniej wybieranych przez Ciebie reklamodawców <span class="text-nowrap">z zakresu</span> pożyczek', 'values' => json_encode([
                 1 => 'Ferratum',
                 2 => 'Filarum',
                 3 => 'Hapi Pożyczki',
@@ -168,7 +168,7 @@ class DatabaseSeeder extends Seeder
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 13, 'name' => 'pyt13', 'type' => 'multiselect', 'text' =>
             'Co jest najważniejszym argumentem przy wyborze tych kampanii reklamowych, 
             (kryterium, po którym wybierasz kampanię, przy poszczególnych kryteriach wpisz wartości od 1 do 8,
-             gdzie 1 –najważniejsze, 8 kryterium najmniej ważne)?',
+             gdzie <span class="text-nowrap">1 – najważniejsze</span>, <span class="text-nowrap">8 - kryterium</span> najmniej ważne)?',
             'values' => json_encode([
                 1 => ['question' => 'terminowe wypłaty rozliczeń', 'answers' => [1, 2, 3, 4, 5, 6, 7, 8]],
                 2 => ['question' => 'rozliczenia już po miesiącu od startu kampanii', 'answers' => [1, 2, 3, 4, 5, 6, 7, 8]],
@@ -206,7 +206,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 17, 'name' => 'pyt17', 'type' => 'checkbox', 'text' =>
-            'Co skłoniłoby Cię do promowania lub zwiększenia działań na rzecz kampanii VIVUS? (Zaznacz maksymalnie 3)', 'values' => json_encode([
+            'Co skłoniłoby Cię do promowania lub zwiększenia działań na rzecz kampanii VIVUS? <span class="text-block">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
             1 => 'terminowe wypłaty rozliczeń',
             2 => 'rozliczenia już po miesiącu od startu kampanii',
             3 => 'różnorodność materiałów reklamowych/graficznych',

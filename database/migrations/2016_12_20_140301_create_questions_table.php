@@ -21,7 +21,7 @@ class CreateQuestionsTable extends Migration
             $table->string('custom_id')->default('');
             $table->string('name');
             $table->string('type');
-            $table->string('text');
+            $table->text('text');
             $table->text('values');
             $table->integer('min_ticks')->unsigned()->default(1);
             $table->integer('max_ticks')->unsigned()->default(3);

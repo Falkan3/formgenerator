@@ -71,6 +71,10 @@ img.vivus-logo {
     margin-bottom: 50px;
 }
 
+img.vivus-logo.cornered {
+    float: right;
+}
+
 span.highlight {
     font-size: 28px;
     font-weight: bold;
