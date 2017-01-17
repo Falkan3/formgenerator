@@ -17,38 +17,38 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         Survey::Create(['name' => 'default', 'step_titles' => json_encode([
-            1 => 'Część 1: Dane kontaktowe:',
-            2 => 'Część 2: Pytania ogólne identyfikujące wydawców:',
-            3 => 'Część 3: Pytania identyfikujące ogólne preferencje wydawców:',
-            4 => 'Część 4: Pytania dotyczące kampanii pożyczkowych na przykładzie VIVUS:'
+            1 => 'Część 0: Dane kontaktowe:',
+            2 => 'Część 1: Pytania ogólne identyfikujące wydawców:',
+            3 => 'Część 2: Pytania identyfikujące ogólne preferencje wydawców:',
+            4 => 'Część 3: Pytania dotyczące kampanii pożyczkowych na przykładzie VIVUS:'
         ])
         ]);
 
         //Page 1
 
-        Question::create(['survey_id' => 1, 'step' => 1, 'number' => 1, 'name' => 'pyt1', 'type' => 'text', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 1, 'number' => 0, 'name' => 'pyt_imie', 'type' => 'text', 'text' =>
             'Podaj swoje imię', 'values' => [], 'rule' => 'required|min:1|max:50']);
 
-        Question::create(['survey_id' => 1, 'step' => 1, 'custom_id' => 'email', 'number' => 2, 'name' => 'pyt2', 'type' => 'text', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 1, 'custom_id' => 'email', 'number' => 0, 'name' => 'pyt_email', 'type' => 'text', 'text' =>
             'Podaj swój adres E-mail', 'values' => [], 'rule' => 'required|email|min:1|max:50']);
 
         //Page 2
 
-        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 3, 'name' => 'pyt3', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 1, 'name' => 'pyt1', 'type' => 'radio', 'text' =>
             'Jak długo prowadzisz swojego najstarszego bloga/stronę/serwis?',
             'values' => json_encode([
                 1 => 'mniej niż rok',
                 2 => '1-3 lata',
                 3 => 'Powyżej 3 lat'
             ]), 'rule' => 'required']);
-        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 4, 'name' => 'pyt4', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 2, 'name' => 'pyt2', 'type' => 'radio', 'text' =>
             'Ile blogów/stron/serwisów prowadzisz?',
             'values' => json_encode([
                 1 => '1',
                 2 => '2-5',
                 3 => 'Powyżej 5'
             ]), 'rule' => 'required']);
-        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 5, 'name' => 'pyt5', 'type' => 'checkbox', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 3, 'name' => 'pyt3', 'type' => 'checkbox', 'text' =>
             'Jakiej kategorii działania w Internecie prowadzisz? (Zaznacz maksymalnie 3)',
             'values' => json_encode([
                 1 => 'blog',
@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
                 6 => 'dostawca technologii',
                 'other' => 'inne'
             ]), 'rule' => 'required|max:3']);
-        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 6, 'name' => 'pyt6', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 2, 'number' => 4, 'name' => 'pyt4', 'type' => 'radio', 'text' =>
             'Ile średnio miesięcznie zarabiasz na blogu/stronie/serwisie?', 'values' => json_encode([
             1 => 'mniej niż 1500 zł',
             2 => '1500 - 5000 zł',
@@ -70,7 +70,7 @@ class DatabaseSeeder extends Seeder
 
         //Page 3
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'min_ticks' => 3, 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 5, 'name' => 'pyt5', 'type' => 'checkbox', 'text' =>
             'Z jakiej formy generowania przychodu z bloga/strony/serwisu korzystasz regularnie? (Zaznacz 3 najważniejsze)', 'values' => json_encode([
             1 => 'sieci afiliacyjne',
             2 => 'programy partnerskie',
@@ -81,9 +81,9 @@ class DatabaseSeeder extends Seeder
             7 => 'sprzedaż własnych produktów/usług',
             'other' => 'inne'
         ]),
-            'rule' => 'required|min:3|max:3']);
+            'rule' => 'required|max:3']);
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 8, 'name' => 'pyt8', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 6, 'name' => 'pyt6', 'type' => 'radio', 'text' =>
             'Która z form zarobkowania na blogu/stronie/serwisie generuje najwyższe obroty?', 'values' => json_encode([
             1 => 'sieci afiliacyjne',
             2 => 'programy partnerskie',
@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 9, 'name' => 'pyt9', 'type' => 'checkbox', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'text' =>
             'Jakiego rodzaju kampanie wybierasz najczęściej? (Zaznacz maksymalnie 3)', 'values' => json_encode([
             1 => 'produkty bankowe – kredyty gotówkowe',
             2 => 'produkty bankowe – inne',
@@ -110,7 +110,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required|max:3']);
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 10, 'name' => 'pyt10', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 8, 'name' => 'pyt8', 'type' => 'radio', 'text' =>
             'Jaki model rozliczeń preferujesz?', 'values' => json_encode([
             1 => 'CPS – cost per sale',
             2 => 'CPL – cost per lead - long form',
@@ -120,7 +120,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 11, 'name' => 'pyt11', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 9, 'name' => 'pyt9', 'type' => 'radio', 'text' =>
             'Jaki format reklamowy generuje najwyższe obroty?', 'values' => json_encode([
             1 => 'link tekstowy',
             2 => 'mailing',
@@ -130,7 +130,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 12, 'name' => 'pyt12', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 10, 'name' => 'pyt10', 'type' => 'radio', 'text' =>
             'Jaki parametr po otrzymaniu walidacji, jest dla Ciebie najważniejszy, decydujący o ewentualnej kontynuacji współpracy?', 'values' => json_encode([
             1 => '% akceptowalności',
             2 => 'wartość faktury/rozliczenia',
@@ -142,7 +142,7 @@ class DatabaseSeeder extends Seeder
 
         //page 2
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 13, 'name' => 'pyt13', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 11, 'name' => 'pyt11', 'type' => 'radio', 'text' =>
             'Czy  na swoim blogu/stronie/serwisie promujesz kampanie firm pożyczkowych?', 'values' => json_encode([
             1 => 'tak',
             'other' => 'nie (Co skłoniłoby Cię do promowania kampanii VIVUS?)'
@@ -151,7 +151,7 @@ class DatabaseSeeder extends Seeder
 
         //page 3
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 14, 'name' => 'pyt14', 'type' => 'checkbox', 'min_ticks' => 5, 'max_ticks' => 5, 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 12, 'name' => 'pyt12', 'type' => 'checkbox', 'min_ticks' => 5, 'max_ticks' => 5, 'text' =>
             'Podaj 5 najchętniej wybieranych przez Ciebie reklamodawców z zakresu pożyczek', 'values' => json_encode([
                 1 => 'Ferratum',
                 2 => 'Filarum',
@@ -165,7 +165,7 @@ class DatabaseSeeder extends Seeder
             ]),
                 'rule' => 'required|min:5|max:5']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 15, 'name' => 'pyt15', 'type' => 'multiselect', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 13, 'name' => 'pyt13', 'type' => 'multiselect', 'text' =>
             'Co jest najważniejszym argumentem przy wyborze tych kampanii reklamowych, 
             (kryterium, po którym wybierasz kampanię, przy poszczególnych kryteriach wpisz wartości od 1 do 8,
              gdzie 1 –najważniejsze, 8 kryterium najmniej ważne)?',
@@ -181,11 +181,11 @@ class DatabaseSeeder extends Seeder
             ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 16, 'name' => 'pyt16', 'type' => 'text', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 14, 'name' => 'pyt14', 'type' => 'text', 'text' =>
             'Czego Twoim zdaniem brakuje w obecnie funkcjonujących kampaniach firm VIVUS - co byś zmienił/ła?',
             'values' => [], 'rule' => 'required|min:1|max:50']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 17, 'name' => 'pyt17', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 15, 'name' => 'pyt15', 'type' => 'radio', 'text' =>
             'Jak postrzegasz obecnie dostępne kampanie VIVUS na tle konkurencyjnych firm pożyczkowych?',
             'values' => json_encode([
                 1 => 'bardzo dobrze',
@@ -195,7 +195,7 @@ class DatabaseSeeder extends Seeder
                 5 => 'nie mam zdania'
             ]), 'rule' => 'required|min:1|max:50']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 18, 'name' => 'pyt18', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 16, 'name' => 'pyt16', 'type' => 'radio', 'text' =>
             'Jak postrzegasz obecna obsługę wydawców afiliacyjnych po stronie VIVUS?', 'values' => json_encode([
             1 => 'bardzo dobrze',
             2 => 'dobrze',
@@ -205,7 +205,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 19, 'name' => 'pyt19', 'type' => 'checkbox', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 17, 'name' => 'pyt17', 'type' => 'checkbox', 'text' =>
             'Co skłoniłoby Cię do promowania lub zwiększenia działań na rzecz kampanii VIVUS? (Zaznacz maksymalnie 3)', 'values' => json_encode([
             1 => 'terminowe wypłaty rozliczeń',
             2 => 'rozliczenia już po miesiącu od startu kampanii',
@@ -217,7 +217,7 @@ class DatabaseSeeder extends Seeder
             8 => 'znajomość reklamowanej marki'
         ]), 'rule' => 'required|max:3']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 20, 'name' => 'pyt20', 'type' => 'radio', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 18, 'name' => 'pyt18', 'type' => 'radio', 'text' =>
             'Co jest dla Ciebie najważniejsze w  promocjach/ konkursach dedykowanych dla wydawców?', 'values' => json_encode([
             1 => 'nagroda rzeczowa',
             2 => 'nagroda finansowa',

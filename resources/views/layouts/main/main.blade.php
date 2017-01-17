@@ -11,7 +11,7 @@
     <title>@yield('title', 'index')</title>
 
 <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
     <link href="{{URL::asset('css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">

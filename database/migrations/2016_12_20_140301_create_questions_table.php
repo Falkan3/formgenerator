@@ -15,7 +15,6 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('survey_id')->unsigned()->default(1);
             $table->integer('step')->unsigned();
             $table->integer('number')->unsigned();
@@ -29,8 +28,6 @@ class CreateQuestionsTable extends Migration
             $table->string('rule')->default('');
 
             $table->timestamps();
-
-            $table->unique(array('survey_id', 'number'));
         });
     }
 

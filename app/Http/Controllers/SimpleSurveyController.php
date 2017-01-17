@@ -92,7 +92,7 @@ class SimpleSurveyController extends Controller
             {
                 $result = SurveyResult::where('survey_id', $id)->where('survey_step', 3)->where('cookie', $cookie_val)->first();
                 //if(isset($result) && $result->answers=='[]')
-                if(isset($result) && json_decode($result->answers, 1)['pyt13']=='other')
+                if(isset($result) && json_decode($result->answers, 1)['pyt11']=='other')
                     return $this->getSurveyDone($id);
                     //return redirect('survey/gen/'.$id.'/'.($step+1));
             }
@@ -176,7 +176,7 @@ class SimpleSurveyController extends Controller
         $result->save();
 
         if ($id == 1 && $step == 3) {
-            if ($request->pyt13 == 'other') {
+            if ($request->pyt11 == 'other') {
                 $old_result = SurveyResult::where('survey_id', 1)->where('survey_step', 4)->where('cookie', $cookie_val)->first();
                 if (count($old_result) > 0)
                     $result = $old_result;
