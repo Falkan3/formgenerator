@@ -131,7 +131,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 10, 'name' => 'pyt10', 'type' => 'radio', 'text' =>
-            'Jaki parametr po otrzymaniu walidacji, jest dla Ciebie najważniejszy, decydujący <span class="text-block">o ewentualnej kontynuacji współpracy?</span>', 'values' => json_encode([
+            'Jaki parametr po otrzymaniu walidacji, jest dla Ciebie najważniejszy, decydujący <span class="text-nowrap">o ewentualnej</span> kontynuacji współpracy?', 'values' => json_encode([
             1 => '% akceptowalności',
             2 => 'wartość faktury/rozliczenia',
             3 => 'eCPL/realna wartość przychodu na leadzie',
