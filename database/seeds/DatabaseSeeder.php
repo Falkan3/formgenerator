@@ -196,7 +196,7 @@ class DatabaseSeeder extends Seeder
             ]), 'rule' => 'required|min:1|max:50']);
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 16, 'name' => 'pyt16', 'type' => 'radio', 'text' =>
-            'Jak postrzegasz obecna obsługę wydawców afiliacyjnych po stronie VIVUS?', 'values' => json_encode([
+            'Jak postrzegasz obecną obsługę wydawców afiliacyjnych po stronie VIVUS?', 'values' => json_encode([
             1 => 'bardzo dobrze',
             2 => 'dobrze',
             3 => 'źle',
