@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'min_ticks' => 0, 'text' =>
             'Jakiego rodzaju kampanie wybierasz najczęściej? <span class="text-block light small">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
             1 => 'produkty bankowe – kredyty gotówkowe',
             2 => 'produkty bankowe – inne',
@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
             8 => 'zdrowie i uroda',
             'other' => 'inne'
         ]),
-            'rule' => 'required|max:3']);
+            'rule' => 'max:3']);
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 8, 'name' => 'pyt8', 'type' => 'radio', 'text' =>
             'Jaki model rozliczeń preferujesz?', 'values' => json_encode([
@@ -131,7 +131,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 10, 'name' => 'pyt10', 'type' => 'radio', 'text' =>
-            'Jaki parametr po otrzymaniu walidacji, jest dla Ciebie najważniejszy, decydujący <span class="text-block">o ewentualnej</span> kontynuacji współpracy?', 'values' => json_encode([
+            'Jaki parametr po otrzymaniu walidacji, jest dla Ciebie najważniejszy, decydujący <span class="text-block">o ewentualnej kontynuacji współpracy?</span>', 'values' => json_encode([
             1 => '% akceptowalności',
             2 => 'wartość faktury/rozliczenia',
             3 => 'eCPL/realna wartość przychodu na leadzie',
