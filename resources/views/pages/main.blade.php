@@ -44,7 +44,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <section>
                         @if(isset($survey['survey_step_title']) && isset($survey['step']) && $survey['step']>1)
-                            <h2><span class="text-center">{{$survey['survey_step_title']}}</span></h2>
+                            <h2 class="margin-bottom-medium small"><span class="text-center">{{$survey['survey_step_title']}}</span></h2>
                         @endif
 
                         <div class="contact-form padding-medium">

@@ -62,7 +62,7 @@ header nav #logo {
 }
 
 .margin-bottom-medium {
-    margin-bottom: 30px;
+    margin-bottom: 30px !important;
 }
 
 img.vivus-logo {
@@ -73,6 +73,8 @@ img.vivus-logo {
 
 img.vivus-logo.cornered {
     float: right;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 span.highlight {
@@ -96,6 +98,10 @@ span.text-bold
 
 span.text-block {
     display: block;
+}
+
+h2.small {
+    font-size: 23px;
 }
 
 /* /Utilites *************************************************************************/
