@@ -27,10 +27,10 @@ class DatabaseSeeder extends Seeder
         //Page 1
 
         Question::create(['survey_id' => 1, 'step' => 1, 'number' => 0, 'name' => 'pyt_imie', 'type' => 'text', 'text' =>
-            'Podaj swoje imię', 'values' => [], 'rule' => 'required|min:1|max:50']);
+            'Podaj swoje imię', 'placeholder' => 'Tu wpisz swoje imię', 'values' => [], 'rule' => 'required|min:1|max:50']);
 
         Question::create(['survey_id' => 1, 'step' => 1, 'custom_id' => 'email', 'number' => 0, 'name' => 'pyt_email', 'type' => 'text', 'text' =>
-            'Podaj swój adres E-mail', 'values' => [], 'rule' => 'required|email|min:1|max:50']);
+            'Podaj swój adres e-mail', 'placeholder' => 'Tu wpisz swój poprawny adres e-mail', 'values' => [], 'rule' => 'required|email|min:1|max:50']);
 
         //Page 2
 
@@ -182,7 +182,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 14, 'name' => 'pyt14', 'type' => 'text', 'text' =>
-            'Czego Twoim zdaniem brakuje w obecnie funkcjonujących kampaniach firm VIVUS - co byś zmienił/ła?',
+            'Czego Twoim zdaniem brakuje w obecnie funkcjonujących kampaniach firm VIVUS? Co byś zmienił/ła?',
             'values' => [], 'rule' => 'required|min:1|max:50']);
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 15, 'name' => 'pyt15', 'type' => 'radio', 'text' =>

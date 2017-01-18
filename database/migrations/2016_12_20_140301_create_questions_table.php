@@ -23,6 +23,7 @@ class CreateQuestionsTable extends Migration
             $table->string('type');
             $table->text('text');
             $table->text('values');
+            $table->string('placeholder')->default('');
             $table->integer('min_ticks')->unsigned()->default(1);
             $table->integer('max_ticks')->unsigned()->default(3);
             $table->string('rule')->default('');

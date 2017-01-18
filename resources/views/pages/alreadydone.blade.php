@@ -2,6 +2,9 @@
 @section('title')
     Ankieta - zrobione! | ProperAd
 @stop
+@section('custom_meta')
+    <meta http-equiv=REFRESH CONTENT=5;url=http://www.properad.pl>
+@stop
 
 @section('content')
     <div class="content">

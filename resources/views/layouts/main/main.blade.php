@@ -10,6 +10,8 @@
 
     <title>@yield('title', 'index')</title>
 
+    @yield('custom_meta')
+
 <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,700,700i&amp;subset=latin-ext" rel="stylesheet">
     <link href="{{URL::asset('css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">

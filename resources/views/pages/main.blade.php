@@ -23,8 +23,7 @@
                 @if(isset($survey['step']))
                     @if($survey['step']==1)
                         <h3 class="no-margin"><span class="highlight big colored">Ankieta dla wydawców</span></h3>
-                        <h3 class="no-margin margin-bottom-medium"><span
-                                    class="highlight">organizowana we współpracy z</span>
+                        <h3 class="no-margin margin-bottom-medium">organizowana we współpracy z
                         </h3>
                         <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
                     @elseif($survey['step']>1)
@@ -74,8 +73,9 @@
                                                     @endif
                                                 </p>
                                             </div>
+                                            <?php if($item->placeholder != '') {$placeholder = $item->placeholder;} else {$placeholder = 'Odpowiedź';} ?>
                                             <a href="#" data-toggle="tooltip" data-placement="bottom"
-                                               title="{{$item->text}}">{{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => 'Odpowiedź', 'required', 'id' => $id])}}</a>
+                                               title="{{$item->text}}">{{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => $placeholder, 'required', 'id' => $id])}}</a>
                                         </div>
                                     @elseif($item->type == 'radio')
                                         <div class="col-xs-12 input-body">
