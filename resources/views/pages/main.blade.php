@@ -74,8 +74,7 @@
                                                 </p>
                                             </div>
                                             <?php if($item->placeholder != '') {$placeholder = $item->placeholder;} else {$placeholder = 'Odpowiedź';} ?>
-                                            <a href="#" data-toggle="tooltip" data-placement="bottom"
-                                               title="{{$item->text}}">{{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => $placeholder, 'required', 'id' => $id])}}</a>
+                                            {{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => $placeholder, 'required', 'id' => $id])}}
                                         </div>
                                     @elseif($item->type == 'radio')
                                         <div class="col-xs-12 input-body">
