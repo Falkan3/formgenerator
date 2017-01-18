@@ -43,7 +43,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <section>
                         @if(isset($survey['survey_step_title']) && isset($survey['step']) && $survey['step']>1)
-                            <h2 class="margin-bottom-medium small"><span class="text-center">{{$survey['survey_step_title']}}</span></h2>
+                            <h2 class="margin-bottom-medium small"><span
+                                        class="text-center">{{$survey['survey_step_title']}}</span></h2>
                         @endif
 
                         <div class="contact-form padding-medium">
@@ -73,7 +74,11 @@
                                                     @endif
                                                 </p>
                                             </div>
-                                            <?php if($item->placeholder != '') {$placeholder = $item->placeholder;} else {$placeholder = 'Odpowiedź';} ?>
+                                            <?php if ($item->placeholder != '') {
+                                                $placeholder = $item->placeholder;
+                                            } else {
+                                                $placeholder = 'Odpowiedź';
+                                            } ?>
                                             {{Form::text($item->name, $answer, ['class' => "contact-form-field", 'placeholder' => $placeholder, 'required', 'id' => $id])}}
                                         </div>
                                     @elseif($item->type == 'radio')
@@ -146,7 +151,12 @@
                                             {{Form::select($item->name, [null=>'-']+json_decode($item->values, 1), null, ['class' => "contact-form-field", 'required'])}}
                                         </div>
                                     @elseif($item->type == 'multiselect')
-                                        <div class="col-xs-12 input-body">
+                                        @if($item->select_unique == 1)
+                                            <?php $unique = ' data-unique=unique'; ?>
+                                        @else
+                                            <?php $unique = ''; ?>
+                                        @endif
+                                        <div class="col-xs-12 input-body"{{$unique}} >
                                             <div class="col-xs-2 col-sm-1 input-header">
                                                 <p>
                                                     @if($item->number!=0)

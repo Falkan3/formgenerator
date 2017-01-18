@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
         ]),
             'rule' => 'required']);
 
-        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'min_ticks' => 0, 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'text' =>
             'Jakiego rodzaju kampanie wybierasz najczęściej? <span class="text-block light small">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
             1 => 'produkty bankowe – kredyty gotówkowe',
             2 => 'produkty bankowe – inne',
@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
             8 => 'zdrowie i uroda',
             'other' => 'inne'
         ]),
-            'rule' => 'max:3']);
+            'rule' => 'required|max:3']);
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 8, 'name' => 'pyt8', 'type' => 'radio', 'text' =>
             'Jaki model rozliczeń preferujesz?', 'values' => json_encode([
@@ -165,7 +165,7 @@ class DatabaseSeeder extends Seeder
             ]),
                 'rule' => 'required|min:5|max:5']);
 
-        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 13, 'name' => 'pyt13', 'type' => 'multiselect', 'text' =>
+        Question::create(['survey_id' => 1, 'step' => 4, 'number' => 13, 'name' => 'pyt13', 'type' => 'multiselect', 'select_unique' => 1,'text' =>
             'Co jest najważniejszym argumentem przy wyborze tych kampanii reklamowych?
             <span class="light small text-block">(kryterium, po którym wybierasz kampanię, przy poszczególnych kryteriach wpisz wartości od 1 do 8,
              gdzie <span class="text-nowrap">1 – najważniejsze</span>, <span class="text-nowrap">8 - kryterium</span> najmniej ważne)</span>',

@@ -3,6 +3,7 @@ $(document).ready(function () {
     var email = $("form#contact-form input[type='text']#email");
     var checkboxesAndRadios = $("form#contact-form input[type='checkbox'], form#contact-form input[type='radio']");
     var checkboxes = $("form#contact-form input[type='checkbox']");
+    var multiselects_unique = $("form#contact-form div[data-unique='unique'] select");
     //var fieldGroups = $("form#contact-form .field-group .input-body");
 
     var other = $("form#contact-form input[type='text'][name^='other']");
@@ -52,8 +53,7 @@ $(document).ready(function () {
         responses[0] = []; //container for wrong inputs in $
         responses[1] = validateOther();
         responses[2] = validateRadiosAndCheckboxes();
-        if(email.length > 0)
-        {
+        if (email.length > 0) {
             responses[3] = validateEmail();
             max_validate = 3;
         }
@@ -81,7 +81,7 @@ $(document).ready(function () {
         other.each(function (e) {
             var box = $(this).parent().find("input[type='checkbox'], input[type='radio']");
             if (box.prop('checked') == true) {
-                if ($(this).val().length == 0) {
+                if ($(this).val().length == 0 && $(this).attr('name') != 'other_pyt7') {
                     wrongInputs.push($(this));
                     wrong = true;
                 }
@@ -102,7 +102,7 @@ $(document).ready(function () {
             if (fields.length > 0) {
                 fields.each(function () {
                     var min = $(this).attr('min_ticks');
-                    if (min!=null) {
+                    if (min != null) {
                         if ($(this).parent().parent().find("input[type='checkbox']:checked").length >= min) {
                             correctField = true;
                         }
@@ -123,11 +123,43 @@ $(document).ready(function () {
         return [wrong, wrongInputs];
     }
 
+    $("#dropdownId").on('change', function () {
+        var ddl = $(this);
+        var previous = ddl.data('previous');
+        ddl.data('previous', ddl.val());
+    });
+
+
+
+    multiselects_unique.attr("data-prev",multiselects_unique.val());
+
+    multiselects_unique.change(function(data){
+        var jqThis = $(this);
+        var this_prev = jqThis.attr("data-prev");
+        var option = $(this).parent().parent().find('select option[value=\'' + this_prev + '\']');
+        if (option.length > 0) {
+            option.each(function() {
+                $(this).removeAttr('disabled');
+            });
+        }
+
+        if(this.value != '') {
+            var option_2 = $(this).parent().parent().find('select option[value=\'' + this.value + '\']');
+            if (option_2.length  > 0) {
+                option_2.each(function() {
+                    $(this).attr('disabled', "disabled");
+                });
+            }
+        }
+
+        jqThis.attr("data-prev",this.value);
+    });
+
     function validateEmail() {
         var wrong = false;
         var wrong_inputs = [];
         wrong = !emailIsValid(email.val());
-        if(wrong == true) {
+        if (wrong == true) {
             wrong_inputs.push($(email));
         }
 
