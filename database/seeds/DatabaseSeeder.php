@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
                 3 => 'Powyżej 5'
             ]), 'rule' => 'required']);
         Question::create(['survey_id' => 1, 'step' => 2, 'number' => 3, 'name' => 'pyt3', 'type' => 'checkbox', 'text' =>
-            'Jakiej kategorii działania w Internecie prowadzisz? <span class="text-block">(Zaznacz maksymalnie 3)</span>',
+            'Jakiej kategorii działania w Internecie prowadzisz? <span class="text-block light">(Zaznacz maksymalnie 3)</span>',
             'values' => json_encode([
                 1 => 'blog',
                 2 => 'serwis informacyjny',
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
         //Page 3
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 5, 'name' => 'pyt5', 'type' => 'checkbox', 'text' =>
-            'Z jakiej formy generowania przychodu z bloga/strony/serwisu korzystasz regularnie? <span class="text-block">(Zaznacz 3 najważniejsze)</span>', 'values' => json_encode([
+            'Z jakiej formy generowania przychodu z bloga/strony/serwisu korzystasz regularnie? <span class="light">(Zaznacz 3 najważniejsze)</span>', 'values' => json_encode([
             1 => 'sieci afiliacyjne',
             2 => 'programy partnerskie',
             3 => 'współpraca z agencjami/ sieciami reklamowymi',
@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 3, 'number' => 7, 'name' => 'pyt7', 'type' => 'checkbox', 'text' =>
-            'Jakiego rodzaju kampanie wybierasz najczęściej? <span class="text-block">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
+            'Jakiego rodzaju kampanie wybierasz najczęściej? <span class="text-block light">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
             1 => 'produkty bankowe – kredyty gotówkowe',
             2 => 'produkty bankowe – inne',
             3 => 'produkty pozabankowe - pożyczki',
@@ -206,7 +206,7 @@ class DatabaseSeeder extends Seeder
             'rule' => 'required']);
 
         Question::create(['survey_id' => 1, 'step' => 4, 'number' => 17, 'name' => 'pyt17', 'type' => 'checkbox', 'text' =>
-            'Co skłoniłoby Cię do promowania lub zwiększenia działań na rzecz kampanii VIVUS? <span class="text-block">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
+            'Co skłoniłoby Cię do promowania lub zwiększenia działań na rzecz kampanii VIVUS? <span class="text-block light">(Zaznacz maksymalnie 3)</span>', 'values' => json_encode([
             1 => 'terminowe wypłaty rozliczeń',
             2 => 'rozliczenia już po miesiącu od startu kampanii',
             3 => 'różnorodność materiałów reklamowych/graficznych',
