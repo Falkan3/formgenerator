@@ -215,6 +215,10 @@ body {
 .contact-form .field-group .input-body select {
     margin-right: 5px;
 }
+.contact-form .field-group .input-body select option:disabled {
+    background-color: #d5d5d5;
+    color: #000000;
+}
 
 .contact-form .field-group .input-body.padding-small {
     padding: 5px;
