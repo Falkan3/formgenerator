@@ -3,108 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Survey;
 use App\Question;
 use App\SurveyResult;
 use Illuminate\Support\Facades\Session;
 
 class SurveyController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('survey', ['only' => ['getSurveyStep', 'postSurveyStep']]);
+    public function showSurveySteps($id = 1) {
+        $survey = Survey::findOrFail($id);
+        $survey_name = $survey->name;
+        $steps = Question::where('survey_id', $id)->max('step');
+        $step_titles = json_decode($survey->step_titles, 1);
+        $survey_date_created = $survey->created_at;
+
+        $data = ['name' => $survey_name, 'steps' => $steps, 'step_titles' => $step_titles, 'created_at' => $survey_date_created];
+
+        return view('REST.surveys.index', ['data' => $data, 'pagename' => 'Survey results pages']);
     }
 
-    public function getSurvey($id)
+    public function showSurveyResults($id = 1, $step = 1)
     {
-        //$survey = Survey::findOrFail($id);
-        $data = $this->getSurveyStep($id, 1);
-
-        return $data;
-    }
-
-    public function generateSurvey($id = 1, $step = 1)
-    {
-        $data = $this->getSurveyStep($id, $step);
-        return redirect('/')->with(['data' => $data]);
-    }
-
-    protected function fetchStepQuestions($id, $step)
-    {
-        $questions = Question::where('survey_id', $id)->where('step', $step)->get();
-        if (empty($questions)) {
-            abort(404);
+        $survey = Survey::findOrFail($id);
+        $survey_name = $survey->name;
+        $step_titles = json_decode($survey->step_titles, 1);
+        $step_titles = $step_titles[$step];
+        $survey_date_created = $survey->created_at;
+        $survey_questions_raw = Question::where('survey_id', $id)->where('step', $step)->get();
+        $survey_questions = [];
+        foreach($survey_questions_raw as $item) {
+            array_push($survey_questions, json_decode($item, 1));
         }
-
-        return $questions;
-    }
-
-    public function getSurveyStep($id, $step)
-    {
-        $questions = $this->fetchStepQuestions($id, $step);
-        $answers = Session::get('survey' . $id . '_step' . $step);
-
-        return ['id' => $id, 'questions' => $questions, 'answers' => $answers, 'step' => $step];
-        /*
-        return [
-            'questions' => $questions,
-            'step' => $step,
-            'survey' => $request->session()->get('survey')
-        ];
-        */
-    }
-
-    public function postSurveyStep($id, $step, Request $request)
-    {
-        $questions = $this->fetchStepQuestions($id, $step);
-        $lastStep = Question::where('survey_id', $id)->max('step');
-
-        $rules = [];
-        foreach ($questions as $question) {
-            $rules[$question->name] = $question->rule;
+        $survey_answers_raw = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->get();
+        $survey_answers = [];
+        foreach($survey_answers_raw as $item) {
+            array_push($survey_answers, json_decode($item->answers, 1));
         }
+        $data = ['name' => $survey_name, 'step_title' => $step_titles, 'created_at' => $survey_date_created, 'questions' => $survey_questions, 'answers' => $survey_answers];
 
-        $this->validate($request, $rules);
-
-        /*
-        $request->session()->get('survey')
-            ->update($request->only(array_keys($rules)))
-        ;
-        */
-        $step_session = collect(['survey_id' => $id, 'step' => $step, 'answers' => $request->except('_token')]);
-        $survey = collect(['survey_id' => $id, 'step' => $step]);
-        Session::put('survey' . $id . '_step' . $step, $step_session);
-        Session::put('survey' . $id . 'step', $survey);
-
-        $result = new SurveyResult;
-        $result->survey_id = $id;
-        $result->survey_step = $step;
-        $result->answers = json_encode($request->except('_token'));
-        $result->ip = request()->ip();
-        $result->save();
-
-        if ($step == $lastStep) {
-            /*
-            $finalresults = [];
-            for ($i = 0; $i < $lastStep; $i++) {
-                $finalresults[] = Session::get('survey' . $id . '_step' . $i);
-            }
-            //return print_r($finalresults);
-            $result = new SurveyResult;
-            $result->survey_id = $id;
-            $result->survey_step = $step;
-            $result->answers = json_encode($finalresults);
-            $result->ip = request()->ip();
-            $result->save();
-            */
-
-            return redirect()->action('SurveyController@getSurveyDone');
-        }
-
-        return $this->generateSurvey($id, $step + 1);
-    }
-
-    public function getSurveyDone()
-    {
-        return print_r("Dziękujemy za przesłane dane!");
+        return view('REST.surveys.show', ['data' => $data, 'pagename' => 'Survey results page '.$step]);
     }
 }

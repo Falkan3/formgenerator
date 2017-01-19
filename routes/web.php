@@ -29,6 +29,10 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     });
 
     Route::resource('/page', 'PageController');
+
+    Route::get('survey/index', 'SurveyController@showSurveySteps');
+    Route::get('survey/show', 'SurveyController@showSurveyResults');
+    Route::get('survey/show/{id}/{step}', 'SurveyController@showSurveyResults');
 });
 
 Route::group(['middleware' => ['web']], function () {

@@ -35,7 +35,7 @@
                             <p>Photos uploaded by you</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="ion"></i>
                         </div>
                         <a href="#" class="small-box-footer">View recent <i
                                     class="fa fa-arrow-circle-right"></i></a>
@@ -52,12 +52,29 @@
                             <p>Photos uploaded this week</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
+
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-blue">
+                        <div class="inner">
+                            <h3>xx</h3>
+
+                            <p>Results this week</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="{{url('survey/index')}}" class="small-box-footer">Survey results <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
             </div>
             <!-- /.row -->
 

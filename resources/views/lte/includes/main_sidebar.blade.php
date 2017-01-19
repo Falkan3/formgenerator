@@ -17,6 +17,35 @@
             </div>
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <?php /*<li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>*/ ?>
+                    <li><a href="{{url('home')}}"><i class="fa fa-circle-o"></i> Home</a></li>
+                    <li><a href="{{url('photo/create')}}"><i class="fa fa-circle-o"></i> New Photo</a></li>
+                    <li><a href="{{url('page/create')}}"><i class="fa fa-circle-o"></i> New Page</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Surveys</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{url('survey/index')}}"><i class="fa fa-circle-o"></i> Results</a></li>
+                </ul>
+            </li>
+        </ul>
 
     </section>
     <!-- /.sidebar -->

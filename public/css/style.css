@@ -1,10 +1,3 @@
-.main-sidebar, .left-side {
-    height: 100%;
-    position: fixed;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
 .main-sidebar {
     min-width: 65px;
 }

@@ -147,9 +147,9 @@ class SimpleSurveyController extends Controller
             $cookie_val = '';
 
         //
-
-        $this->validate($request, $rules);
-
+        $validator = $this->validate($request, $rules);
+        if(isset($validator) && $validator->fails())
+            return redirect('survey/gen/' . $id . '/' . ($step))->withErrors($validator)->withInput();
         //
 
         $old_result = SurveyResult::where('survey_id', $id)->where('survey_step', $step)->where('cookie', $cookie_val)->first(); //->where('ip', request()->ip())->get();
