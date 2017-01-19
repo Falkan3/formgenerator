@@ -448,6 +448,10 @@ body {
     .contact-form .header-ext {
         margin-left: 55px !important;
     }
+
+    .contact-form .header-ext p {
+        padding: 0;
+    }
 }
 
 @media (max-width: 768px) {
@@ -462,7 +466,7 @@ body {
 
     .contact-form .btn {
         font-size: 16px;
-        padding: 15px 25px;
+        padding: 3% 0;
     }
 
     .corner-ribbon {
@@ -481,6 +485,34 @@ body {
     .contact-form .header-ext {
         margin-left: 115px !important;
     }
+
+    .contact-form select.contact-form-field {
+        width: 30%;
+    }
+    .contact-form label {
+        width: 60%;
+        word-break: break-word;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+    span.highlight.big {
+        font-size: 26px;
+    }
+    p {
+        font-size: 16px;
+    }
+    .contact-form .header-ext p {
+        font-size: medium;
+    }
+
+    img.vivus-logo.cornered {
+        max-width: 250px;
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 @media (max-width: 620px) {
@@ -496,10 +528,6 @@ body {
 }
 
 @media (max-width: 420px) {
-    .contact-form .field-group .header-ext {
-        height: 80px;
-    }
-
     .contact-form .header-ext {
         margin-left: 55px !important;
     }

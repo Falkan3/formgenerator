@@ -52,7 +52,7 @@
 
                             @foreach($survey['questions'] as $item)
                                 <div class="container field-group">
-                                    <div class="col-xs-11 col-sm-11 header-ext"><p><span
+                                    <div class="col-xs-9 col-sm-11 header-ext"><p><span
                                                     class="text-bold">{!! $item->text !!}</span></p></div>
 
                                     @if($item->type == 'text')

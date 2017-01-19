@@ -73,6 +73,7 @@ $(document).ready(function () {
                 scrollTop: responses[0][0].offset().top - 30
             }, 1500, 'easeInOutExpo');
         }
+        multiselects_unique.find('option').removeAttr('disabled');
     });
 
     function validateOther() {
