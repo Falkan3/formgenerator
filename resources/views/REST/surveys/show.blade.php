@@ -48,6 +48,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h3>Answer count for this step: {{count($data['answers'])}}</h3>
+                                    <?php $csv_index = 0; ?>
                                     @foreach($data['questions'] as $question)
                                         <?php $chartDataRaw = [] ?>
                                         @if(!empty($question['values']))
@@ -56,51 +57,62 @@
                                         <?php /*print_r($values)*/ ?>
                                         <h3>[{{$question['number']}}] {!! $question['text'] !!} ({{$question['name']}}
                                             )</h3>
-                                        @foreach($data['answers'] as $key_a => $answer)
-                                            @if($question['type'] === 'text')
-                                                @if($question['type']==='text')
-                                                    {{$answer[$question['name']].', '}}
-                                                    <?php $chartDataRaw[] = $answer[$question['name']] ?>
-                                                @endif
-                                            @else
-                                                @if(isset($answer[$question['name']]))
-                                                    @if(is_array($answer[$question['name']]))
 
-                                                        @if($question['type']==='multiselect')
-                                                            <p>
-                                                                <?php
-                                                                $multi_questions = [];
-                                                                $multi_questions_raw = json_decode($question['values'], 1);
-                                                                foreach($multi_questions_raw as $item) {
-                                                                $multi_questions[] = $item['question'];
-                                                                echo $item['question'].', ';
-                                                                }
-                                                                ?>
-                                                            </p>
-                                                        @endif
+                                        <button class="btn btn-block showcsv" data-index="{{$csv_index}}"
+                                                style="width: 200px;">Generate CSV
+                                        </button>
+                                        <div class="csv-container" data-index="{{$csv_index++}}" style="display: none;">
+                                            @if($question['type']!='text')
+                                                <p>
+                                                    @if($question['type']==='multiselect')
+                                                        <?php
+                                                        //$multi_questions = [];
+                                                        foreach($values as $item) {
+                                                        //$multi_questions[] = $item['question'];
+                                                        echo $item['question'].';';
+                                                        }
+                                                        ?>
+                                                        {{'|'}}
+                                                    @else
+                                                        @foreach($values as $value)
+                                                            {{$value.';'}}
+                                                        @endforeach
+                                                        {{'|'}}
+                                                    @endif
+                                                </p>
+                                            @endif
+                                            @foreach($data['answers'] as $key_a => $answer)
+                                                @if($question['type'] === 'text')
+                                                    {{$answer[$question['name']].';'}}
+                                                    <?php $chartDataRaw[] = $answer[$question['name']] ?>
+                                                @else
+                                                    @if(isset($answer[$question['name']]))
                                                         <p>
-                                                            @foreach($answer[$question['name']] as $t_key => $tick)
-                                                                @if($question['type']!='multiselect')
-                                                                    {{$values[$t_key].', '}}
-                                                                    <?php $chartDataRaw[] = $values[$t_key] ?>
-                                                                @elseif($question['type']==='multiselect')
-                                                                    <?php /*
+                                                            @if(is_array($answer[$question['name']]))
+                                                                @foreach($answer[$question['name']] as $t_key => $tick)
+                                                                    @if($question['type']!='multiselect')
+                                                                        {{$values[$t_key].';'}}
+                                                                        <?php $chartDataRaw[] = $values[$t_key] ?>
+                                                                    @elseif($question['type']==='multiselect')
+                                                                        <?php /*
                                                                     {{$values[$t_key]['question']}}
                                                                     */ ?>
-                                                                    {{($tick+1).', '}}
-                                                                    <?php /*$chartDataRaw[($tick+1)] = $values[$t_key]['question']*/ ?>
-                                                                @else
-                                                                    <?php print_r($values[$t_key]) ?>{{', '}}
-                                                                @endif
-                                                            @endforeach
+                                                                        {{($tick+1).';'}}
+                                                                        <?php /*$chartDataRaw[($tick+1)] = $values[$t_key]['question']*/ ?>
+                                                                    @else
+                                                                        <?php print_r($values[$t_key]) ?>{{';'}}
+                                                                    @endif
+                                                                @endforeach
+                                                            @else
+                                                                {{$values[$answer[$question['name']]].';'}}
+                                                                <?php $chartDataRaw[] = $values[$answer[$question['name']]] ?>
+                                                            @endif
+                                                            {{'|'}}
                                                         </p>
-                                                    @else
-                                                        {{$values[$answer[$question['name']]].', '}}
-                                                        <?php $chartDataRaw[] = $values[$answer[$question['name']]] ?>
                                                     @endif
                                                 @endif
-                                            @endif
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                         <?php
                                         $chartData = [];
                                         foreach($chartDataRaw as $key => $item) {
@@ -235,4 +247,21 @@
     <!-- Footer -->
 
     <!-- Control Sidebar -->
+    <script>
+        $('button.showcsv').click(function (e) {
+            var data = $('.csv-container[data-index="' + $(this).attr('data-index') + '"]');//.text().replace(/ /g,'');
+            data.toggle();
+
+            var $temp = $("<input>");
+            $("body").append($temp);
+            var text = "";
+            var paragraphs = data.find('p');
+            paragraphs.each(function () {
+                text += $.trim($(this).text().replace(/\s{2,}/g, ' ').replace('|',"&CHAR(10)"));
+            });
+            $temp.val(text).select();
+            document.execCommand("copy");
+            $temp.remove();
+        });
+    </script>
 @stop

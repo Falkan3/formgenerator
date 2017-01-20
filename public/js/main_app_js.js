@@ -1,8 +1,8 @@
-var tooltips;
-var alertItems=["4 osoby oglądają właśnie oferty nieruchomości", "2min temu zostało dokonane zamówienie na usługi rachunkowe"];
+//var tooltips;
+//var alertItems=["4 osoby oglądają właśnie oferty nieruchomości", "2min temu zostało dokonane zamówienie na usługi rachunkowe"];
 
 $(document).ready(function () {
-    tooltips = $('[data-toggle="tooltip"]');
+    //tooltips = $('[data-toggle="tooltip"]');
 
     if ($(window).width() > 768) {
         //tooltips.attr('data-placement', 'bottom');
