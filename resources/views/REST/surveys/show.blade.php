@@ -54,7 +54,8 @@
                                             <?php $values = json_decode($question['values'], 1) ?>
                                         @endif
                                         <?php /*print_r($values)*/ ?>
-                                        <h3>[{{$question['number']}}] {!! $question['text'] !!} ({{$question['name']}})</h3>
+                                        <h3>[{{$question['number']}}] {!! $question['text'] !!} ({{$question['name']}}
+                                            )</h3>
                                         @foreach($data['answers'] as $key_a => $answer)
                                             @if($question['type'] === 'text')
                                                 @if($question['type']==='text')
@@ -72,7 +73,7 @@
                                                             @elseif($question['type']==='multiselect')
                                                                 {{$values[$t_key]['question']}}
                                                                 {{($tick+1).', '}}
-                                                                <?php //$chartDataRaw[($tick+1)] = $values[$t_key]['question'] ?>
+                                                                <?php /*$chartDataRaw[($tick+1)] = $values[$t_key]['question']*/ ?>
                                                             @else
                                                                 <?php print_r($values[$t_key]) ?>{{', '}}
                                                             @endif
@@ -97,6 +98,24 @@
 
                                         }
                                         ?>
+                                        @if(isset($chartData))
+                                            <table class="table table-responsive table-striped">
+                                                <thead>
+                                                <tr>
+                                                    @foreach($chartData as $key => $header)
+                                                        <th>{{$key}}</th>
+                                                    @endforeach
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    @foreach($chartData as $header)
+                                                        <td>{{$header}}</td>
+                                                    @endforeach
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        @endif
 
                                     <!-- DONUT CHART -->
                                         <div class="box box-danger">
