@@ -257,7 +257,7 @@
             var text = "";
             var paragraphs = data.find('p');
             paragraphs.each(function () {
-                text += $.trim($(this).text().replace(/\s{2,}/g, ' ').replace('|',"&CHAR(10)"));
+                text += $.trim($(this).text().replace(/\s{2,}/g, ' ').replace('|',""));
             });
             $temp.val(text).select();
             document.execCommand("copy");
