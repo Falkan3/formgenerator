@@ -72,7 +72,6 @@
                                                         echo $item['question'].';';
                                                         }
                                                         ?>
-                                                        {{'|'}}
                                                     @else
                                                         @foreach($values as $value)
                                                             {{$value.';'}}
