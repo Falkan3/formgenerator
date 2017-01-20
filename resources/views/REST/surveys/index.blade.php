@@ -50,6 +50,26 @@
                                     @foreach($data['step_titles'] as $key => $step)
                                         <p><a href="{{url('survey/show/1/'.$key)}}">{{$step}}</a></p>
                                     @endforeach
+
+                                    <h3>Users that took the survey</h3>
+                                    <table class="table table-responsive table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Imię</th>
+                                            <th>E-mail</th>
+                                            <th>Krok</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($data['users'] as $user)
+                                            <tr>
+                                                <td>{{$user['imie']}}</td>
+                                                <td>{{$user['email']}}</td>
+                                                <td>{{$user['max_step']}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                             <!-- /.row -->

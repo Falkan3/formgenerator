@@ -49,6 +49,7 @@
                                 <div class="col-md-12">
                                     <h3>Answer count for this step: {{count($data['answers'])}}</h3>
                                     @foreach($data['questions'] as $question)
+                                        <?php $chartDataRaw = [] ?>
                                         @if(!empty($question['values']))
                                             <?php $values = json_decode($question['values'], 1) ?>
                                         @endif
@@ -59,30 +60,120 @@
                                             @if($question['type'] === 'text')
                                                 @if($question['type']==='text')
                                                     {{$answer[$question['name']].', '}}
+                                                    <?php $chartDataRaw[] = $answer[$question['name']] ?>
                                                 @endif
                                             @else
-                                                @if(is_array($answer[$question['name']]))
-                                                    {{'['}}
-                                                    @foreach($answer[$question['name']] as $t_key => $tick)
-                                                        @if($question['type']!='multiselect')
-                                                            {{$values[$t_key].', '}}
-                                                        @elseif($question['type']==='multiselect')
-                                                            {{$values[$t_key]['question']}}
-                                                            {{($tick+1).', '}}
-                                                        @else
-                                                            <?php print_r($values[$t_key]) ?>{{', '}}
-                                                        @endif
-                                                    @endforeach
-                                                    {{']'}}
-                                                @else
-                                                    {{$values[$answer[$question['name']]].', '}}
+                                                @if(isset($answer[$question['name']]))
+                                                    @if(is_array($answer[$question['name']]))
+                                                        {{'['}}
+                                                        @foreach($answer[$question['name']] as $t_key => $tick)
+                                                            @if($question['type']!='multiselect')
+                                                                {{$values[$t_key].', '}}
+                                                                <?php $chartDataRaw[] = $values[$t_key] ?>
+                                                            @elseif($question['type']==='multiselect')
+                                                                {{$values[$t_key]['question']}}
+                                                                {{($tick+1).', '}}
+                                                                <?php //$chartDataRaw[($tick+1)] = $values[$t_key]['question'] ?>
+                                                            @else
+                                                                <?php print_r($values[$t_key]) ?>{{', '}}
+                                                            @endif
+                                                        @endforeach
+                                                        {{']'}}
+                                                    @else
+                                                        {{$values[$answer[$question['name']]].', '}}
+                                                        <?php $chartDataRaw[] = $values[$answer[$question['name']]] ?>
+                                                    @endif
                                                 @endif
                                             @endif
                                         @endforeach
+                                        <?php
+                                        $chartData = [];
+                                        foreach($chartDataRaw as $key => $item) {
+                                        if(isset($chartData[$item])) {
+                                        $chartData[$item]++;
+                                        }
+                                        else {
+                                        $chartData[$item] = 1;
+                                        }
+
+                                        }
+                                        ?>
+
+                                    <!-- DONUT CHART -->
+                                        <div class="box box-danger">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Donut Chart</h3>
+
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool"
+                                                            data-widget="collapse"><i
+                                                                class="fa fa-minus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                                        <i
+                                                                class="fa fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="box-body">
+                                                <canvas class="piechart unused" style="height:150px"></canvas>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+                                        <!-- /.box -->
+                                        <script>
+                                            //-------------
+                                            //- PIE CHART -
+                                            //-------------
+                                            // Get context with jQuery - using jQuery's .get() method.
+                                            var pieChartCanvasRaw = $('.piechart.unused:first');
+                                            var pieChartCanvas = pieChartCanvasRaw.get(0).getContext("2d");
+                                            var pieChart = new Chart(pieChartCanvas);
+                                            var PieData = [
+                                                    @foreach($chartData as $key => $item)
+                                                    @if(is_numeric($item))
+                                                    <?php $rand = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT) ?>
+                                                {
+                                                    value: {{$item}},
+                                                    color: "{{$rand}}",
+                                                    highlight: "#f56954",
+                                                    label: "{{$key}}"
+                                                },
+                                                @endif
+                                                @endforeach
+                                            ];
+                                            var pieOptions = {
+                                                //Boolean - Whether we should show a stroke on each segment
+                                                segmentShowStroke: true,
+                                                //String - The colour of each segment stroke
+                                                segmentStrokeColor: "#fff",
+                                                //Number - The width of each segment stroke
+                                                segmentStrokeWidth: 2,
+                                                //Number - The percentage of the chart that we cut out of the middle
+                                                percentageInnerCutout: 50, // This is 0 for Pie charts
+                                                //Number - Amount of animation steps
+                                                animationSteps: 100,
+                                                //String - Animation easing effect
+                                                animationEasing: "easeOutBounce",
+                                                //Boolean - Whether we animate the rotation of the Doughnut
+                                                animateRotate: true,
+                                                //Boolean - Whether we animate scaling the Doughnut from the centre
+                                                animateScale: false,
+                                                //Boolean - whether to make the chart responsive to window resizing
+                                                responsive: true,
+                                                // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+                                                maintainAspectRatio: true,
+                                                //String - A legend template
+                                                legendTemplate: "&lt;ul class=&lt;%=name.toLowerCase()%&gt;-legend\&quot;&gt;&lt;% for (var i=0; i&lt;segments.length; i++){%&gt;&lt;li&gt;&lt;span style=\&quot;background-color:&lt;%=segments[i].fillColor%&gt;\&quot;&gt;&lt;/span&gt;&lt;%if(segments[i].label){%&gt;&lt;%=segments[i].label%&gt;&lt;%}%&gt;&lt;/li&gt;&lt;%}%&gt;&lt;/ul&gt;"
+                                            };
+                                            pieChart.Doughnut(PieData, pieOptions);
+                                            pieChartCanvasRaw.removeClass('unused');
+                                        </script>
                                     @endforeach
 
                                     <h3>All answers</h3>
                                     <?php print_r($data['answers']) ?>
+
+
                                 </div>
                             </div>
                             <!-- /.row -->

@@ -17,7 +17,35 @@ class SurveyController extends Controller
         $step_titles = json_decode($survey->step_titles, 1);
         $survey_date_created = $survey->created_at;
 
-        $data = ['name' => $survey_name, 'steps' => $steps, 'step_titles' => $step_titles, 'created_at' => $survey_date_created];
+        //Table of users
+        $users_max_step = SurveyResult::selectRaw("`cookie`,max(`survey_step`) as 'max_step'")->groupBy('cookie')->orderBy('max_step', 'desc')->get();
+        $names_raw = SurveyResult::select(['cookie', 'answers'])->where('survey_step', 1)->get();
+        $users = []; $names = [];
+        foreach($users_max_step as $key => $item) {
+            $users[$key]['cookie'] = $item['attributes']['cookie'];
+            $users[$key]['max_step'] = $item['attributes']['max_step'];
+        }
+        foreach($users_max_step as $key => $item) {
+            $users[$key]['cookie'] = $item['attributes']['cookie'];
+            $users[$key]['max_step'] = $item['attributes']['max_step'];
+        }
+        foreach($names_raw as $key => $item) {
+            $names[$key]['cookie'] = $item['attributes']['cookie'];
+            $names[$key]['answers'] = json_decode($item['attributes']['answers'],1);
+            $names[$key]['imie'] = $names[$key]['answers']['pyt_imie'];
+            $names[$key]['email'] = $names[$key]['answers']['pyt_email'];
+        }
+        foreach($users as $key => $item) {
+            foreach($names as $key2 => $item2) {
+                if($item['cookie'] === $item2['cookie']) {
+                    $users[$key]['imie'] = $item2['imie'];
+                    $users[$key]['email'] = $item2['email'];
+                }
+            }
+        }
+        //
+
+        $data = ['name' => $survey_name, 'steps' => $steps, 'step_titles' => $step_titles, 'created_at' => $survey_date_created, 'users' => $users];
 
         return view('REST.surveys.index', ['data' => $data, 'pagename' => 'Survey results pages']);
     }
