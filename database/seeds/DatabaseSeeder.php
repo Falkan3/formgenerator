@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
                 3 => 'Powyżej 5'
             ]), 'rule' => 'required']);
         Question::create(['survey_id' => 1, 'step' => 2, 'number' => 3, 'name' => 'pyt3', 'type' => 'checkbox', 'text' =>
-            'Jakiej kategorii działania w Internecie prowadzisz? <span class="text-block light small">(Zaznacz maksymalnie 3)</span>',
+            'Jakiej kategorii działania w Internecie prowadzisz? <span class="text-block light small">(Zaznacz <span class="text-nowrap">do 3</span> najważniejszych)</span>',
             'values' => json_encode([
                 1 => 'blog',
                 2 => 'serwis informacyjny',

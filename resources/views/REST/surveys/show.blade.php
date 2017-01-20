@@ -54,8 +54,7 @@
                                             <?php $values = json_decode($question['values'], 1) ?>
                                         @endif
                                         <?php /*print_r($values)*/ ?>
-                                        <h3>[{{$question['number']}}] {!! $question['text'] !!} ({{$question['name']}}
-                                            )</h3>
+                                        <h3>[{{$question['number']}}] {!! $question['text'] !!} ({{$question['name']}})</h3>
                                         @foreach($data['answers'] as $key_a => $answer)
                                             @if($question['type'] === 'text')
                                                 @if($question['type']==='text')
@@ -115,7 +114,9 @@
                                                 </div>
                                             </div>
                                             <div class="box-body">
-                                                <canvas class="piechart unused" style="height:150px"></canvas>
+                                                <div class="chartContainer">
+                                                    <canvas class="piechart unused" style="height:150px"></canvas>
+                                                </div>
                                             </div>
                                             <!-- /.box-body -->
                                         </div>
