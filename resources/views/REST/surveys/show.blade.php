@@ -77,7 +77,6 @@
                                                         @foreach($values as $value)
                                                             {{$value.';'}}
                                                         @endforeach
-                                                        {{'|'}}
                                                     @endif
                                                 </p>
                                             @endif
@@ -107,7 +106,6 @@
                                                                 {{$values[$answer[$question['name']]].';'}}
                                                                 <?php $chartDataRaw[] = $values[$answer[$question['name']]] ?>
                                                             @endif
-                                                            {{'|'}}
                                                         </p>
                                                     @endif
                                                 @endif
@@ -257,7 +255,7 @@
             var text = "";
             var paragraphs = data.find('p');
             paragraphs.each(function () {
-                text += $.trim($(this).text().replace(/\s{2,}/g, ' ').replace('|',""));
+                text += $.trim($(this).text().replace(/\s{2,}/g, ' '));
             });
             $temp.val(text).select();
             document.execCommand("copy");
