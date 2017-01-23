@@ -77,13 +77,14 @@
                                                             {{$value.';'}}
                                                         @endforeach
                                                     @endif
-                                                    {{"??"}}
+                                                    {{"*"}}
                                                 </p>
                                             @endif
                                             @foreach($data['answers'] as $key_a => $answer)
                                                 @if($question['type'] === 'text')
                                                     <p>
                                                     {{$answer[$question['name']].';'}}
+                                                    {{"*"}}
                                                     </p>
                                                     <?php $chartDataRaw[] = $answer[$question['name']] ?>
                                                 @else
@@ -108,7 +109,7 @@
                                                                 {{$values[$answer[$question['name']]].';'}}
                                                                 <?php $chartDataRaw[] = $values[$answer[$question['name']]] ?>
                                                             @endif
-                                                            {{"??"}}
+                                                            {{"*"}}
                                                         </p>
                                                     @endif
                                                 @endif
@@ -261,7 +262,7 @@
             paragraphs.each(function () {
                 text += $.trim($(this).text().replace(/\s{2,}/g, ' '));
             });
-            text = text.replace(/[??]/g, '\n');
+            text = text.replace(/\*/g, '\n');
             $temp.val(text).select();
             document.execCommand("copy");
             $temp.remove();
