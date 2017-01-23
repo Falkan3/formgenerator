@@ -77,6 +77,7 @@
                                                             {{$value.';'}}
                                                         @endforeach
                                                     @endif
+                                                    {{";;"}}
                                                 </p>
                                             @endif
                                             @foreach($data['answers'] as $key_a => $answer)
@@ -249,13 +250,15 @@
             var data = $('.csv-container[data-index="' + $(this).attr('data-index') + '"]');//.text().replace(/ /g,'');
             data.toggle();
 
-            var $temp = $("<input>");
+            var $temp = $("<textarea></textarea>");
+            $temp.wrap("<span style='background: Highlight;'>");
             $("body").append($temp);
             var text = "";
             var paragraphs = data.find('p');
             paragraphs.each(function () {
                 text += $.trim($(this).text().replace(/\s{2,}/g, ' '));
             });
+            text = text.replace(';;', '\n');
             $temp.val(text).select();
             document.execCommand("copy");
             $temp.remove();
