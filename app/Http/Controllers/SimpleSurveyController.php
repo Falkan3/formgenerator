@@ -49,7 +49,12 @@ class SimpleSurveyController extends Controller
         $answers = $this->getAnswers($id, $step, $cookie_val);
 
         $step_title_raw = Survey::find($id);
-        $step_title = json_decode($step_title_raw->step_titles, 1)[$step];
+        if(isset($step_title_raw) && isset($step_title_raw->step_titles)) {
+            $step_title = json_decode($step_title_raw->step_titles, 1)[$step];
+        }
+        else {
+            $step_title = 'Untitled';
+        }
 
         return ['survey_step_title' => $step_title, 'questions' => $questions, 'step' => $step, 'answers' => $answers];
     }
