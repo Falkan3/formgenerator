@@ -261,7 +261,7 @@
             paragraphs.each(function () {
                 text += $.trim($(this).text().replace(/\s{2,}/g, ' '));
             });
-            text = text.replace('??', '\n');
+            text = text.replace(/[??]/g, '\n');
             $temp.val(text).select();
             document.execCommand("copy");
             $temp.remove();
