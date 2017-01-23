@@ -82,7 +82,9 @@
                                             @endif
                                             @foreach($data['answers'] as $key_a => $answer)
                                                 @if($question['type'] === 'text')
+                                                    <p>
                                                     {{$answer[$question['name']].';'}}
+                                                    </p>
                                                     <?php $chartDataRaw[] = $answer[$question['name']] ?>
                                                 @else
                                                     @if(isset($answer[$question['name']]))
