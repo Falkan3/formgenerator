@@ -89,6 +89,14 @@
                                                 @endforeach
                                                 {{"*"}}
                                             </p>
+                                            @if(isset($question['answers']['other']))
+                                                <p>
+                                                    @foreach($question['answers']['other'] as $other)
+                                                        {{$other.";"}}
+                                                    @endforeach
+                                                    {{"*"}}
+                                                </p>
+                                            @endif
                                         @endforeach
                                     </div>
 
