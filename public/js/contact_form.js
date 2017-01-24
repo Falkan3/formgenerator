@@ -74,6 +74,22 @@ $(document).ready(function () {
             }, 1500, 'easeInOutExpo');
         }
         multiselects_unique.find('option').removeAttr('disabled');
+
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new
+                    Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-69096423-1', 'auto');
+        ga('send', 'pageview');
     });
 
     function validateOther() {
@@ -131,29 +147,28 @@ $(document).ready(function () {
     });
 
 
+    multiselects_unique.attr("data-prev", multiselects_unique.val());
 
-    multiselects_unique.attr("data-prev",multiselects_unique.val());
-
-    multiselects_unique.change(function(data){
+    multiselects_unique.change(function (data) {
         var jqThis = $(this);
         var this_prev = jqThis.attr("data-prev");
         var option = $(this).parent().parent().find('select option[value=\'' + this_prev + '\']');
         if (option.length > 0) {
-            option.each(function() {
+            option.each(function () {
                 $(this).removeAttr('disabled');
             });
         }
 
-        if(this.value != '') {
+        if (this.value != '') {
             var option_2 = $(this).parent().parent().find('select option[value=\'' + this.value + '\']');
-            if (option_2.length  > 0) {
-                option_2.each(function() {
+            if (option_2.length > 0) {
+                option_2.each(function () {
                     $(this).attr('disabled', "disabled");
                 });
             }
         }
 
-        jqThis.attr("data-prev",this.value);
+        jqThis.attr("data-prev", this.value);
     });
 
     function validateEmail() {
