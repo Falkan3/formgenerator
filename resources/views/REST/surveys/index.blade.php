@@ -48,8 +48,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     @foreach($data['step_titles'] as $key => $step)
-                                        <p><a href="{{url('survey/show/1/'.$key)}}">{{$step}}</a></p>
+                                        <p><a href="{{url('survey/show/'.$data['id'].'/'.$key)}}">{{$step}}</a></p>
                                     @endforeach
+                                    <p><a href="{{url('survey/allresults/'.$data['id'])}}">Show all results of this survey</a></p>
 
                                     <h3>Users that took the survey</h3>
                                     <table class="table table-responsive table-bordered table-striped">

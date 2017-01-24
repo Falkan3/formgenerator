@@ -30,9 +30,12 @@ Route::group(['middleware' => ['web', 'auth']], function () {
 
     Route::resource('/page', 'PageController');
 
-    Route::get('survey/index', 'SurveyController@showSurveySteps');
-    Route::get('survey/show', 'SurveyController@showSurveyResults');
-    Route::get('survey/show/{id}/{step}', 'SurveyController@showSurveyResults');
+    Route::group(['prefix' => 'survey'], function () {
+        Route::get('index', 'SurveyController@showSurveySteps');
+        Route::get('show', 'SurveyController@showSurveyResults');
+        Route::get('show/{id}/{step}', 'SurveyController@showSurveyResults');
+        Route::get('allresults/{id}', 'SurveyController@showAllResults');
+    });
 });
 
 Route::group(['middleware' => ['web']], function () {

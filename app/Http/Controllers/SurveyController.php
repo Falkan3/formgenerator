@@ -45,7 +45,7 @@ class SurveyController extends Controller
         }
         //
 
-        $data = ['name' => $survey_name, 'steps' => $steps, 'step_titles' => $step_titles, 'created_at' => $survey_date_created, 'users' => $users];
+        $data = ['id' => $id, 'name' => $survey_name, 'steps' => $steps, 'step_titles' => $step_titles, 'created_at' => $survey_date_created, 'users' => $users];
 
         return view('REST.surveys.index', ['data' => $data, 'pagename' => 'Survey results pages']);
     }
@@ -67,8 +67,48 @@ class SurveyController extends Controller
         foreach($survey_answers_raw as $item) {
             array_push($survey_answers, json_decode($item->answers, 1));
         }
-        $data = ['name' => $survey_name, 'step_title' => $step_titles, 'created_at' => $survey_date_created, 'questions' => $survey_questions, 'answers' => $survey_answers];
+        $data = ['id' => $id, 'name' => $survey_name, 'step_title' => $step_titles, 'created_at' => $survey_date_created, 'questions' => $survey_questions, 'answers' => $survey_answers];
 
         return view('REST.surveys.show', ['data' => $data, 'pagename' => 'Survey results page '.$step]);
+    }
+
+    public function showAllResults($id = 1)
+    {
+        $survey = Survey::findOrFail($id);
+        $survey_name = $survey->name;
+        $step_titles = json_decode($survey->step_titles, 1);
+        $survey_date_created = $survey->created_at;
+
+        $survey_questions_raw = Question::where('survey_id', $id)->get();
+        $survey_questions = [];
+        foreach($survey_questions_raw as $key => $item) {
+            $placeholder = json_decode($item, 1);
+            if(is_string($placeholder['values'])) {
+                $placeholder['values'] = json_decode($placeholder['values'], 1);
+            }
+            $survey_questions[$key]['question'] = $placeholder;
+            //array_push($survey_questions, json_decode($item, 1));
+        }
+        $survey_answers_raw = SurveyResult::where('survey_id', $id)->get();
+        $survey_answers = [];
+        foreach($survey_answers_raw as $item) {
+            array_push($survey_answers, json_decode($item->answers, 1));
+        }
+        foreach($survey_answers as $key => $item) {
+            foreach($item as $key2 => $item2) {
+                foreach ($survey_questions as $key3 => $item3) {
+                    if ($key2 == $item3['question']['name']) {
+                        $survey_questions[$key3]['answers']['vals'][] = $item2;
+                    }
+                    elseif($key2 == 'other_' . $item3['question']['name'] && strlen($item2)>0) {
+                        $survey_questions[$key3]['answers']['other'][] = $item2;
+                    }
+                }
+            }
+        }
+
+        $data = ['id' => $id, 'name' => $survey_name, 'step_titles' => $step_titles, 'created_at' => $survey_date_created, 'questions' => $survey_questions, 'answers' => $survey_answers];
+
+        return view('REST.surveys.allresults', ['data' => $data, 'pagename' => 'Survey ' . $survey_name . ' all results page']);
     }
 }

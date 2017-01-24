@@ -81,36 +81,38 @@
                                                 </p>
                                             @endif
                                             @foreach($data['answers'] as $key_a => $answer)
-                                                @if($question['type'] === 'text')
-                                                    <p>
-                                                    {{$answer[$question['name']].';'}}
-                                                    {{"*"}}
-                                                    </p>
-                                                    <?php $chartDataRaw[] = $answer[$question['name']] ?>
-                                                @else
-                                                    @if(isset($answer[$question['name']]))
+                                                @if(isset($answer[$question['name']]))
+                                                    @if($question['type'] === 'text')
                                                         <p>
-                                                            @if(is_array($answer[$question['name']]))
-                                                                @foreach($answer[$question['name']] as $t_key => $tick)
-                                                                    @if($question['type']!='multiselect')
-                                                                        {{$values[$t_key].';'}}
-                                                                        <?php $chartDataRaw[] = $values[$t_key] ?>
-                                                                    @elseif($question['type']==='multiselect')
-                                                                        <?php /*
-                                                                    {{$values[$t_key]['question']}}
-                                                                    */ ?>
-                                                                        {{($tick+1).';'}}
-                                                                        <?php /*$chartDataRaw[($tick+1)] = $values[$t_key]['question']*/ ?>
-                                                                    @else
-                                                                        <?php print_r($values[$t_key]) ?>{{';'}}
-                                                                    @endif
-                                                                @endforeach
-                                                            @else
-                                                                {{$values[$answer[$question['name']]].';'}}
-                                                                <?php $chartDataRaw[] = $values[$answer[$question['name']]] ?>
-                                                            @endif
+                                                            {{$answer[$question['name']].';'}}
                                                             {{"*"}}
                                                         </p>
+                                                        <?php $chartDataRaw[] = $answer[$question['name']] ?>
+                                                    @else
+                                                        @if(isset($answer[$question['name']]))
+                                                            <p>
+                                                                @if(is_array($answer[$question['name']]))
+                                                                    @foreach($answer[$question['name']] as $t_key => $tick)
+                                                                        @if($question['type']!='multiselect')
+                                                                            {{$values[$t_key].';'}}
+                                                                            <?php $chartDataRaw[] = $values[$t_key] ?>
+                                                                        @elseif($question['type']==='multiselect')
+                                                                            <?php /*
+                                                                    {{$values[$t_key]['question']}}
+                                                                    */ ?>
+                                                                            {{($tick+1).';'}}
+                                                                            <?php /*$chartDataRaw[($tick+1)] = $values[$t_key]['question']*/ ?>
+                                                                        @else
+                                                                            <?php print_r($values[$t_key]) ?>{{';'}}
+                                                                        @endif
+                                                                    @endforeach
+                                                                @else
+                                                                    {{$values[$answer[$question['name']]].';'}}
+                                                                    <?php $chartDataRaw[] = $values[$answer[$question['name']]] ?>
+                                                                @endif
+                                                                {{"*"}}
+                                                            </p>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             @endforeach
