@@ -141,7 +141,7 @@
             var text = "";
             var paragraphs = data.find('p');
             paragraphs.each(function () {
-                text += $.trim($(this).text().replace(/; /g,';').replace(/\s{2,}/g, ' '));
+                text += $.trim($(this).text().replace(/;\s{1,}/g,';').replace(/\s{2,}/g, ' '));
             });
             text = text.replace(/\*/g, '\n');
             $temp.val(text).select();
