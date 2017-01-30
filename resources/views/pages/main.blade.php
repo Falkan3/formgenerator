@@ -22,12 +22,14 @@
             <div class="row text-center">
                 @if(isset($survey['step']))
                     @if($survey['step']==1)
-                        <h3 class="no-margin"><span class="highlight big colored">Ankieta dla wydawców</span></h3>
+                        <h3><span class="highlight big colored">Ankieta dla wydawców</span></h3>
+                    <?php /*
                         <h3 class="no-margin margin-bottom-medium">organizowana we współpracy z
                         </h3>
                         <img src="{{asset('images/pa/vivus.png')}}" class="center-block vivus-logo" alt="logo_vivus"/>
                     @elseif($survey['step']>1)
                         <img src="{{asset('images/pa/vivus.png')}}" class="cornered vivus-logo" alt="logo_vivus"/>
+                    */ ?>
                     @endif
                 @endif
 
