@@ -89,14 +89,14 @@
                                                 @endforeach
                                                 {{"*"}}
                                             </p>
-                                            @if(isset($question['answers']['other']))
-                                                <p>
+                                            <p>
+                                                @if(isset($question['answers']['other']))
                                                     @foreach($question['answers']['other'] as $other)
                                                         {{$other.";"}}
                                                     @endforeach
-                                                    {{"*"}}
-                                                </p>
-                                            @endif
+                                                @endif
+                                                {{"*"}}
+                                            </p>
                                         @endforeach
                                     </div>
 
@@ -141,7 +141,7 @@
             var text = "";
             var paragraphs = data.find('p');
             paragraphs.each(function () {
-                text += $.trim($(this).text().replace(/;\s{1,}/g,';').replace(/\s{2,}/g, ' '));
+                text += $.trim($(this).text().replace(/;\s{1,}/g, ';').replace(/\s{2,}/g, ' '));
             });
             text = text.replace(/\*/g, '\n');
             $temp.val(text).select();
