@@ -77,8 +77,10 @@
                                                         @foreach($answer as $checkbox_key => $answer_lvl2)
                                                             {{$question['question']['values'][$checkbox_key] . ";"}}
                                                         @endforeach
+                                                        {{"*"}}
                                                     @elseif($question['question']['type'] === 'radio')
                                                         {{$question['question']['values'][$answer] . ";"}}
+                                                        {{"*"}}
                                                     @elseif($question['question']['type'] === 'multiselect')
                                                         @foreach($answer as $answer_lvl2)
                                                             {{$answer_lvl2 . ";"}}
@@ -86,9 +88,9 @@
                                                         {{"*"}}
                                                     @else
                                                         {{$answer . ";"}}
+                                                        {{"*"}}
                                                     @endif
                                                 @endforeach
-                                                {{"*"}}
                                             </p>
                                             <p>
                                                 @if(isset($question['answers']['other']))
