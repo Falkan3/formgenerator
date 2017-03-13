@@ -83,6 +83,7 @@
                                                         @foreach($answer as $answer_lvl2)
                                                             {{$answer_lvl2 . ";"}}
                                                         @endforeach
+                                                        {{"*"}}
                                                     @else
                                                         {{$answer . ";"}}
                                                     @endif
