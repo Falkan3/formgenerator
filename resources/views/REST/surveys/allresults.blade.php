@@ -88,7 +88,9 @@
                                                         {{$answer . ";"}}
                                                     @endif
                                                 @endforeach
-                                                {{"*"}}
+                                                @if($question['question']['type'] !== 'multiselect')
+                                                    {{"*"}}
+                                                @endif
                                             </p>
                                             <p>
                                                 @if(isset($question['answers']['other']))
