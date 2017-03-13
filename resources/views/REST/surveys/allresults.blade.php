@@ -71,33 +71,27 @@
                                                     {{"*"}}
                                                 </p>
                                             @endif
-                                            @foreach($question['answers']['vals'] as $answer)
-                                                @if($question['question']['type'] === 'checkbox')
-                                                    <p>
+                                            <p>
+                                                @foreach($question['answers']['vals'] as $answer)
+                                                    @if($question['question']['type'] === 'checkbox')
                                                         @foreach($answer as $checkbox_key => $answer_lvl2)
                                                             {{$question['question']['values'][$checkbox_key] . ";"}}
                                                         @endforeach
                                                         {{"*"}}
-                                                    </p>
-                                                @elseif($question['question']['type'] === 'radio')
-                                                    <p>
+                                                    @elseif($question['question']['type'] === 'radio')
                                                         {{$question['question']['values'][$answer] . ";"}}
                                                         {{"*"}}
-                                                    </p>
-                                                @elseif($question['question']['type'] === 'multiselect')
-                                                    <p>
+                                                    @elseif($question['question']['type'] === 'multiselect')
                                                         @foreach($answer as $answer_lvl2)
                                                             {{$answer_lvl2 . ";"}}
                                                         @endforeach
                                                         {{"*"}}
-                                                    </p>
-                                                @else
-                                                    <p>
+                                                    @else
                                                         {{$answer . ";"}}
                                                         {{"*"}}
-                                                    </p>
-                                                @endif
-                                            @endforeach
+                                                    @endif
+                                                @endforeach
+                                            </p>
                                             <p>
                                                 @if(isset($question['answers']['other']))
                                                     @foreach($question['answers']['other'] as $other)
