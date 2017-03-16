@@ -20,6 +20,7 @@ class SurveyController extends Controller
         //Table of users
         $users_max_step = SurveyResult::selectRaw("`cookie`,max(`survey_step`) as 'max_step'")->groupBy('cookie')->orderBy('max_step', 'desc')->get();
         $names_raw = SurveyResult::select(['cookie', 'answers'])->where('survey_step', 1)->get();
+        $users_completed_survey = SurveyResult::where('survey_step', 4)->count();
         $users = []; $names = [];
         foreach($users_max_step as $key => $item) {
             $users[$key]['cookie'] = $item['attributes']['cookie'];
@@ -45,7 +46,7 @@ class SurveyController extends Controller
         }
         //
 
-        $data = ['id' => $id, 'name' => $survey_name, 'steps' => $steps, 'step_titles' => $step_titles, 'created_at' => $survey_date_created, 'users' => $users];
+        $data = ['id' => $id, 'name' => $survey_name, 'steps' => $steps, 'step_titles' => $step_titles, 'created_at' => $survey_date_created, 'users' => $users, 'users_completed_survey' => $users_completed_survey];
 
         return view('REST.surveys.index', ['data' => $data, 'pagename' => 'Survey results pages']);
     }

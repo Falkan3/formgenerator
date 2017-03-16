@@ -53,6 +53,7 @@
                                     <p><a href="{{url('survey/allresults/'.$data['id'])}}">Show all results of this survey</a></p>
 
                                     <h3>Users that took the survey</h3>
+                                    <p>All: {{count($data->users)}}, completed: {{$data->users_completed_survey}}</p>
                                     <table class="table table-responsive table-bordered table-striped">
                                         <thead>
                                         <tr>
